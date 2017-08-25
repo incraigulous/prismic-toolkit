@@ -15,7 +15,7 @@ class Collection extends \Illuminate\Support\Collection
         $result = [];
 
         foreach($data as $key => $record) {
-            $result[$key] = (new ResponseAdapter())->handle($record);
+            $result[$key] = (new Response())->handle($record);
         }
 
         return $result;

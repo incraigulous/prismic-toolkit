@@ -7,6 +7,10 @@ use Illuminate\Support\ServiceProvider;
 use Incraigulous\PrismicToolkit\Console\Sync;
 use Prismic\Api;
 
+/**
+ * Class PrismicServiceProvider
+ * @package Incraigulous\PrismicToolkit\Providers
+ */
 class PrismicServiceProvider extends ServiceProvider
 {
     /**
@@ -16,14 +20,17 @@ class PrismicServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        //Register the config
         $this->publishes([
-            __DIR__.'../config/prismic.php' => config_path('prismic.php'),
+            __DIR__.'/../../config/prismic.php' => config_path('prismic.php'),
         ], 'config');
 
+        //Register the migrations
         $this->publishes([
-            __DIR__.'/../database/migrations/' => database_path('migrations')
+            __DIR__.'/../../database/migrations/' => database_path('migrations')
         ], 'migrations');
 
+        //Register the commands
         if ($this->app->runningInConsole()) {
             $this->commands([
                 Sync::class
@@ -38,16 +45,31 @@ class PrismicServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        //Register the official prismic SDK
         $this->app->singleton('prismic', function ($app) {
             return Api::get(
                 config('prismic.endpoint'),
                 config('prismic.token'),
                 null,
-                (config('prismic.cacher')) ? new LaravelTaggedCacher() : null
+                (config('prismic.cacher')) ? new LaravelTaggedCacher() : null,
+                config('prismic.cacheTime')
             );
         });
+
+        //Merge the config instead of replacing
+        $this->mergeConfigFrom(
+            __DIR__.'/../../config/prismic.php', 'prismic'
+        );
+
+        //Register migrations
+        $this->loadMigrationsFrom(
+            __DIR__.'/../../database/migrations/'
+        );
     }
 
+    /**
+     * @return array
+     */
     public function provides()
     {
         return ['prismic'];

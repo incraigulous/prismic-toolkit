@@ -5,6 +5,12 @@ namespace Incraigulous\PrismicToolkit;
 
 use Prismic\Fragment\GroupDoc;
 
+/**
+ * A dynamic wrapper for prismic GroupDocs to give a clearer and simpler API.
+ *
+ * Class DynamicGroupDoc
+ * @package Incraigulous\PrismicToolkit
+ */
 class DynamicGroupDoc
 {
     public $groupDoc;
@@ -14,15 +20,26 @@ class DynamicGroupDoc
         $this->groupDoc = $groupDoc;
     }
 
+    /**
+     * Overload parameters to fields
+     * @param $name
+     * @return DynamicSlice|static
+     */
     public function __get($name)
     {
         return $this->resolveField($name);
     }
 
+    /**
+     * Resolve a field by name
+     *
+     * @param $name
+     * @return DynamicSlice|static
+     */
     public function resolveField($name)
     {
         $object = $this->groupDoc->getFragments()[$name];
-        return (new ResponseAdapter())->handle($object);
+        return (new Response())->handle($object);
     }
 
     /**

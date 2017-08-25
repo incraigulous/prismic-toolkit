@@ -2,6 +2,10 @@
 
 namespace Incraigulous\PrismicToolkit\Facades;
 
+/**
+ * Class Prismic
+ * @package Incraigulous\PrismicToolkit\Facades
+ */
 class Prismic extends \Illuminate\Support\Facades\Facade
 {
     /**
@@ -9,5 +13,8 @@ class Prismic extends \Illuminate\Support\Facades\Facade
      *
      * @return string
      */
-    protected static function getFacadeAccessor() { return 'prismic'; }
+    protected static function getFacadeAccessor()
+    {
+        return 'prismic';
+    }
 }

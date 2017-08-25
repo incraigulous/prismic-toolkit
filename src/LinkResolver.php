@@ -24,7 +24,7 @@ class LinkResolver
 
     public function resolveWithHttp(DocumentLink $link)
     {
-        return (new ResponseAdapter())->handle(
+        return (new Response())->handle(
             Prismic::getById($link->getId())
         );
     }

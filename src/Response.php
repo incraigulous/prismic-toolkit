@@ -18,12 +18,31 @@ use Prismic\Fragment\Link\DocumentLink;
 use Prismic\Fragment\SliceZone;
 use Prismic\Fragment\Timestamp;
 
+/**
+ * A factory for handing any level of Prismic responses.
+ *
+ * Class Response
+ * @package Incraigulous\PrismicToolkit
+ */
 class Response
 {
+    /**
+     * An alias for make.
+     *
+     * @param $responseObject
+     * @return DynamicSlice|static
+     */
     public static function make($responseObject) {
         return self::handle($responseObject);
     }
 
+    /**
+     * Accept an level of Prismic response, modify it and return it if needed.
+     * If the object passed isn't handled, return it as is.
+     *
+     * @param $responseObject
+     * @return Collection|DynamicDocument|DynamicGroupDoc|DynamicSlice|static
+     */
     public static function handle($responseObject)
     {
         switch (get_class($responseObject)) {

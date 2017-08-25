@@ -2,7 +2,12 @@
 
 namespace Incraigulous\PrismicToolkit;
 
-
+/**
+ * A dummy for structured text fields.
+ *
+ * Class StructuredTextDummy
+ * @package Incraigulous\PrismicToolkit
+ */
 class StructuredTextDummy
 {
     public function asHtml(){

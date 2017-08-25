@@ -11,6 +11,12 @@ namespace Incraigulous\PrismicToolkit;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
 use Prismic\Fragment\Link\DocumentLink;
 
+/**
+ * Resolve prismic links
+ *
+ * Class LinkResolver
+ * @package Incraigulous\PrismicToolkit
+ */
 class LinkResolver
 {
     public function resolve($link)

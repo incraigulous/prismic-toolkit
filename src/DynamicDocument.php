@@ -2,6 +2,7 @@
 
 namespace Incraigulous\PrismicToolkit;
 
+use Incraigulous\PrismicToolkit\Traits\OverloadsToObject;
 use Prismic\Document;
 
 /**
@@ -12,38 +13,13 @@ use Prismic\Document;
  */
 class DynamicDocument
 {
-    public $document;
+    use OverloadsToObject;
+
+    public $object;
 
     public function __construct(Document $document)
     {
-        $this->document = $document;
-    }
-
-    /**
-     * Overload methods to the document.
-     *
-     * @param $name
-     * @param $arguments
-     * @return mixed
-     */
-    public function __call($name, $arguments)
-    {
-        if (method_exists($this, $name)) {
-            return call_user_func_array([$this, $name], $arguments);
-        }
-
-        return call_user_func_array([$this->document, $name], $arguments);
-    }
-
-    /**
-     * Overload properties to fields
-     *
-     * @param $name
-     * @return DynamicSlice|StructuredTextDummy|static
-     */
-    public function __get($name)
-    {
-        return $this->resolveField($name);
+        $this->object = $document;
     }
 
     /**
@@ -52,24 +28,9 @@ class DynamicDocument
      * @param $name
      * @return DynamicSlice|StructuredTextDummy|static
      */
-    public function resolveField($name)
+    public function getRaw($name)
     {
-        if ( ! $this->exists($name)) {
-            return new StructuredTextDummy();
-        }
-        $object = $this->document->getFragments()[$this->resolveFieldName($name)];
-
-        return (new Response())->handle($object);
-    }
-
-    /**
-     * Alias for exists()
-     * @param $name
-     * @return bool
-     */
-    public function has($name)
-    {
-        return $this->exists($name);
+        return $this->object->getFragments()[$this->resolveFieldName($name)];
     }
 
     /**
@@ -80,8 +41,7 @@ class DynamicDocument
      */
     public function exists($name)
     {
-        $fragments = $this->document->getFragments();
-
+        $fragments = $this->object->getFragments();
         return array_key_exists($this->resolveFieldName($name), $fragments);
     }
 
@@ -93,6 +53,6 @@ class DynamicDocument
      */
     public function resolveFieldName($name)
     {
-        return $this->document->getType() . '.' . $name;
+        return $this->object->getType() . '.' . $name;
     }
 }

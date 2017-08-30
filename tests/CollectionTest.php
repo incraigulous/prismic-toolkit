@@ -5,7 +5,6 @@ use Incraigulous\PrismicToolkit\Collection;
 use Incraigulous\PrismicToolkit\DynamicDocument;
 use Incraigulous\PrismicToolkit\DynamicGroupDoc;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
-use Prismic\Fragment\StructuredText;
 use Prismic\Predicates;
 
 /**
@@ -45,6 +44,6 @@ class CollectionTest extends TestCase
         $this->assertGreaterThan(0, $collection->first()->repeatables->count());
         $this->assertInstanceOf(\Illuminate\Support\Collection::class, $collection->first()->repeatables);
         $this->assertInstanceOf(DynamicGroupDoc::class, $collection->first()->repeatables->first());
-        $this->assertInstanceOf(StructuredText::class, $collection->first()->repeatables->first()->repeatable->title);
+        $this->stringContains('<', $collection->first()->repeatables->first()->repeatable->title);
     }
 }

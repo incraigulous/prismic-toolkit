@@ -3,10 +3,7 @@
 namespace Incraigulous\PrismicToolkit\Tests;
 
 use Incraigulous\PrismicToolkit\CacheRules\NoCache;
-use Incraigulous\PrismicToolkit\DynamicSlice;
 use Incraigulous\PrismicToolkit\Endpoint;
-use Incraigulous\PrismicToolkit\Facades\Prismic;
-use Incraigulous\PrismicToolkit\Response;
 
 /**
  * @group endpoints

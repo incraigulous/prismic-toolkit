@@ -15,7 +15,10 @@ use Prismic\Fragment\Date;
 use Prismic\Fragment\Group;
 use Prismic\Fragment\GroupDoc;
 use Prismic\Fragment\Link\DocumentLink;
+use Prismic\Fragment\Number;
 use Prismic\Fragment\SliceZone;
+use Prismic\Fragment\StructuredText;
+use Prismic\Fragment\Text;
 use Prismic\Fragment\Timestamp;
 
 /**
@@ -68,6 +71,14 @@ class Response
             case Timestamp::class:
                 return Carbon::parse($responseObject->getValue());
                 break;
+            case StructuredText::class:
+                return $responseObject->asHtml();
+                break;
+            case Number::class:
+                return $responseObject->getValue();
+                break;
+            case Text::class:
+                return $responseObject->asText();
             default:
                 return $responseObject;
         }

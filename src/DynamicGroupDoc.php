@@ -3,6 +3,7 @@
 namespace Incraigulous\PrismicToolkit;
 
 
+use Incraigulous\PrismicToolkit\Traits\OverloadsToObject;
 use Prismic\Fragment\GroupDoc;
 
 /**
@@ -13,21 +14,13 @@ use Prismic\Fragment\GroupDoc;
  */
 class DynamicGroupDoc
 {
-    public $groupDoc;
+    use OverloadsToObject;
+
+    public $object;
 
     public function __construct(GroupDoc $groupDoc)
     {
-        $this->groupDoc = $groupDoc;
-    }
-
-    /**
-     * Overload parameters to fields
-     * @param $name
-     * @return DynamicSlice|static
-     */
-    public function __get($name)
-    {
-        return $this->resolveField($name);
+        $this->object = $groupDoc;
     }
 
     /**
@@ -36,24 +29,20 @@ class DynamicGroupDoc
      * @param $name
      * @return DynamicSlice|static
      */
-    public function resolveField($name)
+    public function getRaw($name)
     {
-        $object = $this->groupDoc->getFragments()[$name];
-        return (new Response())->handle($object);
+        return $this->getObject()->getFragments()[$name];
     }
 
     /**
-     * Overload methods to the document.
+     * Does a field name exit?
      *
      * @param $name
-     * @param $arguments
-     * @return mixed
+     * @return bool
      */
-    public function __call($name, $arguments)
+    public function exists($name)
     {
-        if (method_exists($this, $name)) {
-            return call_user_func_array([$this, $name], $arguments);
-        }
-        return call_user_func_array([$this->groupDoc, $name], $arguments);
+        $fragments = $this->object->getFragments();
+        return array_key_exists($name, $fragments);
     }
 }

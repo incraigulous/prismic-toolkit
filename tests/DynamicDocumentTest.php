@@ -10,9 +10,6 @@ use Prismic\Fragment\Embed;
 use Prismic\Fragment\GeoPoint;
 use Prismic\Fragment\Image;
 use Prismic\Fragment\Link\ImageLink;
-use Prismic\Fragment\Number;
-use Prismic\Fragment\StructuredText;
-use Prismic\Fragment\Text;
 
 /**
  * @group responses
@@ -40,16 +37,16 @@ class DynamicDocumentTest extends TestCase
     {
         $single = Prismic::getByUID('single', 'test-single');
         $document = Response::make($single);
-        $this->assertInstanceOf(StructuredText::class, $document->title);
-        $this->assertInstanceOf(StructuredText::class, $document->rich_text);
+        $this->stringContains('<', $document->title);
+        $this->stringContains('<', $document->rich_text);
         $this->assertInstanceOf(Image::class, $document->image);
         $this->assertInstanceOf(ImageLink::class, $document->media);
         $this->assertInstanceOf(Carbon::class, $document->date);
         $this->assertInstanceOf(Carbon::class, $document->timestamp);
         $this->assertInstanceOf(Color::class, $document->color);
-        $this->assertInstanceOf(Number::class, $document->number);
-        $this->assertInstanceOf(Text::class, $document->key_text);
-        $this->assertInstanceOf(Text::class, $document->select);
+        $this->assertTrue(is_numeric($document->number));
+        $this->assertTrue(is_string($document->key_text));
+        $this->assertTrue(is_string($document->select));
         $this->assertInstanceOf(Embed::class, $document->embed);
         $this->assertInstanceOf(GeoPoint::class, $document->geopoint);
     }
@@ -63,5 +60,7 @@ class DynamicDocumentTest extends TestCase
         $document = Response::make($single);
         $this->assertFalse($document->has('cats'));
         $this->assertTrue($document->has('title'));
+        $this->assertFalse($document->exists('cats'));
+        $this->assertTrue($document->exists('title'));
     }
 }

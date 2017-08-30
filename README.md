@@ -59,3 +59,55 @@ Calling the field name of the relationship or link field will automatically reso
     $relatedAuthorName = $single->author->name;
 ```
 
+### Wrapper Types
+
+Wrapper objects are either `collections` which extend `illuminate\collection` or objects to overload to a base Prismic object.
+
+#### Collections
+
+See Laravel's collection documentation.
+
+#### Wrapper Objects
+
+##### Helper Methods
+
+`getObject()`
+
+Return the raw prismic object.
+
+```
+    $document->getObject()->getUid();
+```
+
+`get($name)`
+
+Get an attribute on the prismic object and resolve it. This is essentially as using the standard arrow syntax to access a field.
+
+```
+    $document->get('title');
+    
+    is the same as calling
+    
+    $document->title;
+```
+
+`getRaw($name)`
+
+Get an attribute on the prismic object but don't resolve it. The prismic API fragment object will be returned. This should be used to access prismic's raw field helper classes.
+
+```
+    $document->getRaw('title')->asText();
+```
+
+`has($name)` or `exists($name)` 
+
+Does an attribute exist on the prismic instance? Returns a `boolean`.
+
+```
+    $document->exists('title');
+```
+
+
+
+
+

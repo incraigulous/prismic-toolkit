@@ -1,6 +1,8 @@
 <?php
 
-namespace Incraigulous\PrismicToolkit;
+namespace Incraigulous\PrismicToolkit\Wrappers;
+
+use Incraigulous\PrismicToolkit\Response;
 
 class Collection extends \Illuminate\Support\Collection
 {
@@ -15,7 +17,7 @@ class Collection extends \Illuminate\Support\Collection
         $result = [];
 
         foreach($data as $key => $record) {
-            $result[$key] = (new Response())->handle($record);
+            $result[$key] = Response::handle($record);
         }
 
         return $result;

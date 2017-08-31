@@ -1,9 +1,10 @@
 <?php
 
 namespace Incraigulous\PrismicToolkit\Tests;
-use Incraigulous\PrismicToolkit\Collection;
-use Incraigulous\PrismicToolkit\DynamicDocument;
-use Incraigulous\PrismicToolkit\DynamicGroupDoc;
+
+use Incraigulous\PrismicToolkit\Wrappers\DocumentWrapper;
+use Incraigulous\PrismicToolkit\Wrappers\GroupDocWrapper;
+use Incraigulous\PrismicToolkit\Wrappers\Collection;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
 use Prismic\Predicates;
 
@@ -27,7 +28,7 @@ class CollectionTest extends TestCase
         $collection = new Collection($result->getResults());
         $this->assertGreaterThan(0, $collection->count());
         $this->assertInstanceOf(\Illuminate\Support\Collection::class, $collection);
-        $this->assertInstanceOf(DynamicDocument::class, $collection->first());
+        $this->assertInstanceOf(DocumentWrapper::class, $collection->first());
     }
 
     /**
@@ -43,7 +44,23 @@ class CollectionTest extends TestCase
         $this->assertInstanceOf(\Illuminate\Support\Collection::class, $collection);
         $this->assertGreaterThan(0, $collection->first()->repeatables->count());
         $this->assertInstanceOf(\Illuminate\Support\Collection::class, $collection->first()->repeatables);
-        $this->assertInstanceOf(DynamicGroupDoc::class, $collection->first()->repeatables->first());
+        $this->assertInstanceOf(GroupDocWrapper::class, $collection->first()->repeatables->first());
         $this->stringContains('<', $collection->first()->repeatables->first()->repeatable->title);
+    }
+
+    /**
+     * @testt
+     *
+     */
+    public function it_is_jsonable()
+    {
+        $result = Prismic::query(
+            Predicates::at('document.type', 'nested')
+        );
+
+        $collection = new Collection($result->getResults());
+        $json = $collection->toJson();
+
+        $this->assertTrue(is_string($json));
     }
 }

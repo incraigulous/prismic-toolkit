@@ -2,8 +2,8 @@
 
 namespace Incraigulous\PrismicToolkit\Tests;
 
-use Incraigulous\PrismicToolkit\DynamicDocument;
-use Incraigulous\PrismicToolkit\DynamicGroupDoc;
+use Incraigulous\PrismicToolkit\Wrappers\DocumentWrapper;
+use Incraigulous\PrismicToolkit\Wrappers\GroupDocWrapper;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
 use Incraigulous\PrismicToolkit\Response;
 
@@ -22,7 +22,7 @@ class DynamicGroupDocTest extends TestCase
     public function it_can_make_dynamic_group_docs()
     {
         $groupDoc = Response::make(Prismic::getByUID('nested', 'nested'))->repeatables->first();
-        $this->assertInstanceOf(DynamicGroupDoc::class, $groupDoc);
+        $this->assertInstanceOf(GroupDocWrapper::class, $groupDoc);
     }
 
     /**
@@ -31,6 +31,6 @@ class DynamicGroupDocTest extends TestCase
     public function it_can_resolve_links()
     {
         $groupDoc = Response::make(Prismic::getByUID('nested', 'nested'))->repeatables->first();
-        $this->assertInstanceOf(DynamicDocument::class, $groupDoc->repeatable);
+        $this->assertInstanceOf(DocumentWrapper::class, $groupDoc->repeatable);
     }
 }

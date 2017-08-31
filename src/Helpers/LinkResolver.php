@@ -6,9 +6,10 @@
  * Time: 10:52 AM
  */
 
-namespace Incraigulous\PrismicToolkit;
+namespace Incraigulous\PrismicToolkit\Helpers;
 
 use Incraigulous\PrismicToolkit\Facades\Prismic;
+use Incraigulous\PrismicToolkit\Response;
 use Prismic\Fragment\Link\DocumentLink;
 
 /**
@@ -19,18 +20,18 @@ use Prismic\Fragment\Link\DocumentLink;
  */
 class LinkResolver
 {
-    public function resolve($link)
+    public static function resolve($link)
     {
         if($link instanceof DocumentLink) {
-            return $this->resolveWithHttp($link);
+            return self::resolveWithHttp($link);
         } else {
             return $link->getUrl();
         }
     }
 
-    public function resolveWithHttp(DocumentLink $link)
+    public static function resolveWithHttp(DocumentLink $link)
     {
-        return (new Response())->handle(
+        return Response::handle(
             Prismic::getById($link->getId())
         );
     }

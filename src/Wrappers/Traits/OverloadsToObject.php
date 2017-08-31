@@ -1,15 +1,8 @@
 <?php
-namespace Incraigulous\PrismicToolkit\Traits;
+namespace Incraigulous\PrismicToolkit\Wrappers\Traits;
 
 use Incraigulous\PrismicToolkit\Response;
 
-/**
- * Overload method and properties calls to an object unless they exist on the instance.
- * Also provides some helpers and accessors.
- *
- * Trait OverloadsToObject
- * @package Incraigulous\PrismicToolkit\Traits
- */
 trait OverloadsToObject
 {
     /**
@@ -38,6 +31,12 @@ trait OverloadsToObject
         return $this->callMethod($name, $arguments);
     }
 
+    /**
+     * Call a method on the object
+     * @param $name
+     * @param $arguments
+     * @return mixed
+     */
     public function callMethod($name, $arguments)
     {
         return call_user_func_array([$this->getObject(), $name], $arguments);
@@ -87,6 +86,11 @@ trait OverloadsToObject
         return $this->getObject()->$name;
     }
 
+    public function all()
+    {
+        return get_object_vars($this->getObject());
+    }
+
     /**
      * Alias for exists()
      * @param $name
@@ -106,5 +110,26 @@ trait OverloadsToObject
     public function exists($name)
     {
         return property_exists($this->getObject(), $name);
+    }
+
+    /**
+     * Format a field name prismic style.
+     *
+     * @param $name
+     * @return string
+     */
+    public function resolveFieldKey($name)
+    {
+        return $name;
+    }
+
+    /**
+     * Reverse of resolveFieldKey
+     * @param $key
+     * @return mixed
+     */
+    public function resolveFieldName($key)
+    {
+        return $key;
     }
 }

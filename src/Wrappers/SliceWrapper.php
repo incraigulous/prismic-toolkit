@@ -6,8 +6,9 @@
  * Time: 11:30 AM
  */
 
-namespace Incraigulous\PrismicToolkit;
+namespace Incraigulous\PrismicToolkit\Wrappers;
 
+use Incraigulous\PrismicToolkit\Response;
 use Prismic\Fragment\CompositeSlice;
 
 /**
@@ -15,10 +16,10 @@ use Prismic\Fragment\CompositeSlice;
  *
  * Extends Laravel collections.
  *
- * Class DynamicSlice
+ * Class SliceWrapper
  * @package Incraigulous\PrismicToolkit
  */
-class DynamicSlice extends \Illuminate\Support\Collection
+class SliceWrapper extends \Illuminate\Support\Collection
 {
     public $slice;
 
@@ -40,7 +41,7 @@ class DynamicSlice extends \Illuminate\Support\Collection
         $result = [];
 
         foreach($data as $key => $record) {
-            $result[$key] = (new Response())->handle($record);
+            $result[$key] = Response::handle($record);
         }
 
         return $result;

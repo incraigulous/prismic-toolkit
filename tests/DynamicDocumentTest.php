@@ -2,9 +2,14 @@
 
 namespace Incraigulous\PrismicToolkit\Tests;
 use Carbon\Carbon;
-use Incraigulous\PrismicToolkit\DynamicDocument;
+use Incraigulous\PrismicToolkit\Wrappers\ColorWrapper;
+use Incraigulous\PrismicToolkit\Wrappers\DocumentWrapper;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
 use Incraigulous\PrismicToolkit\Response;
+use Incraigulous\PrismicToolkit\Wrappers\EmbedWrapper;
+use Incraigulous\PrismicToolkit\Wrappers\GeoPointWrapper;
+use Incraigulous\PrismicToolkit\Wrappers\ImageLinkWrapper;
+use Incraigulous\PrismicToolkit\Wrappers\ImageWrapper;
 use Prismic\Fragment\Color;
 use Prismic\Fragment\Embed;
 use Prismic\Fragment\GeoPoint;
@@ -27,7 +32,7 @@ class DynamicDocumentTest extends TestCase
     {
         $single = Prismic::getByUID('single', 'test-single');
         $document = Response::make($single);
-        $this->assertInstanceOf(DynamicDocument::class, $document);
+        $this->assertInstanceOf(DocumentWrapper::class, $document);
     }
 
     /**
@@ -39,16 +44,16 @@ class DynamicDocumentTest extends TestCase
         $document = Response::make($single);
         $this->stringContains('<', $document->title);
         $this->stringContains('<', $document->rich_text);
-        $this->assertInstanceOf(Image::class, $document->image);
-        $this->assertInstanceOf(ImageLink::class, $document->media);
+        $this->assertInstanceOf(ImageWrapper::class, $document->image);
+        $this->assertInstanceOf(ImageLinkWrapper::class, $document->media);
         $this->assertInstanceOf(Carbon::class, $document->date);
         $this->assertInstanceOf(Carbon::class, $document->timestamp);
-        $this->assertInstanceOf(Color::class, $document->color);
+        $this->assertInstanceOf(ColorWrapper::class, $document->color);
         $this->assertTrue(is_numeric($document->number));
         $this->assertTrue(is_string($document->key_text));
         $this->assertTrue(is_string($document->select));
-        $this->assertInstanceOf(Embed::class, $document->embed);
-        $this->assertInstanceOf(GeoPoint::class, $document->geopoint);
+        $this->assertInstanceOf(EmbedWrapper::class, $document->embed);
+        $this->assertInstanceOf(GeoPointWrapper::class, $document->geopoint);
     }
 
     /**

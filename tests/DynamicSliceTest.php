@@ -2,7 +2,7 @@
 
 namespace Incraigulous\PrismicToolkit\Tests;
 
-use Incraigulous\PrismicToolkit\DynamicSlice;
+use Incraigulous\PrismicToolkit\Wrappers\SliceWrapper;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
 use Incraigulous\PrismicToolkit\Response;
 
@@ -24,6 +24,6 @@ class DynamicSliceTest extends TestCase
             Prismic::getByUID('blog_post', 'post-1')
         )->body;
 
-        $this->assertInstanceOf(DynamicSlice::class, $slices->first());
+        $this->assertInstanceOf(SliceWrapper::class, $slices->first());
     }
 }

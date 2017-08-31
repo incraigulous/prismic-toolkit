@@ -88,7 +88,7 @@ class Response
                 return new EmbedWrapper($responseObject);
                 break;
             case FileLink::class:
-                return new FileLinkWrapper($responseObject);
+                return LinkResolver::resolve($responseObject);
                 break;
             case GeoPoint::class:
                 return new GeoPointWrapper($responseObject);
@@ -103,7 +103,7 @@ class Response
                 return new ImageWrapper($responseObject);
                 break;
             case ImageLink::class:
-                return new ImageLinkWrapper($responseObject);
+                return LinkResolver::resolve($responseObject);
                 break;
             case Number::class:
                 return $responseObject->getValue();
@@ -118,7 +118,7 @@ class Response
                 return $responseObject->asText();
                 break;
             case WebLink::class:
-                return new WebLinkWrapper($responseObject);
+                return LinkResolver::resolve($responseObject);
                 break;
             default:
                 return $responseObject;

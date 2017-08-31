@@ -49,7 +49,7 @@ class CollectionTest extends TestCase
     }
 
     /**
-     * @testt
+     * @test
      *
      */
     public function it_is_jsonable()
@@ -59,8 +59,31 @@ class CollectionTest extends TestCase
         );
 
         $collection = new Collection($result->getResults());
+
         $json = $collection->toJson();
 
+        $array = json_decode($json);
         $this->assertTrue(is_string($json));
+        $this->assertGreaterThan(0, $this->count($array));
+        $this->assertTrue(is_string($array[0]->repeatable->image->url));
+    }
+
+    /**
+     * @test
+     *
+     */
+    public function it_is_arrayable()
+    {
+        $result = Prismic::query(
+            Predicates::at('document.type', 'nested')
+        );
+
+        $collection = new Collection($result->getResults());
+
+        $array = $collection->toArray();
+
+        $this->assertTrue(is_array($array));
+        $this->assertGreaterThan(0, $this->count($array));
+        $this->assertTrue(is_string($array[0]['repeatable']['image']['url']));
     }
 }

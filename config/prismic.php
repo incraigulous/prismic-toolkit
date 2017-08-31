@@ -12,6 +12,12 @@ return [
 
     /**
      * A cacher that implements Prismic\Cache\CacheInterface
+     *
+     * Options:
+     * \Incraigulous\PrismicToolkit\Cachers\LaravelCacher::class,
+     * \Incraigulous\PrismicToolkit\Cachers\LaravelTaggedCacher::class,
+     * \Prismic\Cache\ApcCache::class,
+     * \Prismic\Cache\NoCache::class
      */
     'cacher' => \Incraigulous\PrismicToolkit\Cachers\LaravelTaggedCacher::class,
 

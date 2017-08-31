@@ -39,6 +39,32 @@ Add your prismic keys to config/prismic.php
     php artisan migrate
 ```
 
+##### Request Caching
+
+The Prismic SDK allows you to include a custom Cacher by passing it it when creating a new `Prismic\Api` instance. If you're using Laravel, this can be handled automatically by specifying a cacher in the `config/prismic.php`. 
+```
+    /**
+     * A cacher that implements Prismic\Cache\CacheInterface
+     *
+     * Options:
+     * \Incraigulous\PrismicToolkit\Cachers\LaravelCacher::class,
+     * \Incraigulous\PrismicToolkit\Cachers\LaravelTaggedCacher::class,
+     * \Prismic\Cache\ApcCache::class,
+     * \Prismic\Cache\NoCache::class
+     */
+    'cacher' => \Incraigulous\PrismicToolkit\Cachers\LaravelTaggedCacher::class,
+```
+
+#### Precaching
+
+Both the `LaravelCacher` and the `TaggedLaravelCacher` will keep a record of all endpoints called by the API. This allows you to precache endpoints so Prismic never actually has to be called during run time. To precache endpoints run the following command.
+
+```
+    php artisan prismic:sync
+```
+
+Calling this command will flush and call and recache each endpoint that has been called by the application.
+
 ## Fluent wrapper
 
 After calling the API, pass the results into the response class.

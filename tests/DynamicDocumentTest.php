@@ -7,6 +7,7 @@ use Incraigulous\PrismicToolkit\Wrappers\DocumentWrapper;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
 use Incraigulous\PrismicToolkit\Response;
 use Incraigulous\PrismicToolkit\Wrappers\EmbedWrapper;
+use Incraigulous\PrismicToolkit\Wrappers\FileLinkWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\GeoPointWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\ImageLinkWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\ImageWrapper;
@@ -45,7 +46,7 @@ class DynamicDocumentTest extends TestCase
         $this->stringContains('<', $document->title);
         $this->stringContains('<', $document->rich_text);
         $this->assertInstanceOf(ImageWrapper::class, $document->image);
-        $this->assertTrue(is_string($document->media));
+        $this->assertInstanceOf(ImageLinkWrapper::class, $document->media);
         $this->assertInstanceOf(Carbon::class, $document->date);
         $this->assertInstanceOf(Carbon::class, $document->timestamp);
         $this->assertInstanceOf(ColorWrapper::class, $document->color);
@@ -77,10 +78,11 @@ class DynamicDocumentTest extends TestCase
         $single = Prismic::getByUID('single', 'test-single');
         $document = Response::make($single);
         $array = $document->toArray();
+
         $this->assertTrue(is_array($array));
         $this->stringContains('<', $array['title']);
         $this->stringContains('<', $array['rich_text']);
-        $this->assertTrue(is_string($array['media']));
+        $this->assertTrue(is_string($array['media']['url']));
         $this->assertTrue(is_numeric($array['number']));
         $this->assertTrue(is_string($array['key_text']));
         $this->assertTrue(is_string($array['select']));
@@ -98,7 +100,7 @@ class DynamicDocumentTest extends TestCase
         $this->assertTrue(is_string($json));
         $this->stringContains('<', $array['title']);
         $this->stringContains('<', $array['rich_text']);
-        $this->assertTrue(is_string($array['media']));
+        $this->assertTrue(is_string($array['media']['url']));
         $this->assertTrue(is_numeric($array['number']));
         $this->assertTrue(is_string($array['key_text']));
         $this->assertTrue(is_string($array['select']));

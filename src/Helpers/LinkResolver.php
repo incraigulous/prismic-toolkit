@@ -11,6 +11,9 @@ namespace Incraigulous\PrismicToolkit\Helpers;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
 use Incraigulous\PrismicToolkit\Response;
 use Prismic\Fragment\Link\DocumentLink;
+use Prismic\Fragment\Link\FileLink;
+use Prismic\Fragment\Link\ImageLink;
+use Prismic\Fragment\Link\LinkInterface;
 
 /**
  * Resolve prismic links
@@ -20,19 +23,30 @@ use Prismic\Fragment\Link\DocumentLink;
  */
 class LinkResolver
 {
-    public static function resolve($link)
+    public static function resolve(LinkInterface $link)
     {
-        if($link instanceof DocumentLink) {
-            return self::resolveWithHttp($link);
-        } else {
-            return $link->getUrl();
+        switch (get_class($link)) {
+            case DocumentLink::class:
+                return self::resolveDocumentLink($link);
+                break;
+            case FileLink::class:
+            case ImageLink::class:
+                return self::resolveFileLink($link);
+                break;
+            default:
+                $link->getUrl();
         }
     }
 
-    public static function resolveWithHttp(DocumentLink $link)
+    public static function resolveDocumentLink(DocumentLink $link)
     {
         return Response::handle(
             Prismic::getById($link->getId())
         );
+    }
+
+    public static function resolveFileLink(LinkInterface $link)
+    {
+        return Response::handle($link);
     }
 }

@@ -13,7 +13,7 @@ class EmbedWrapper extends FragmentWrapper
             'url' => $this->getObject()->getUrl(),
             'width' => $this->getObject()->getWidth(),
             'height' => $this->getObject()->getHeight(),
-            'oEmbedJson' => $this->getObject()->getOEmbedJson(),
+            'oEmbedJson' => (array) $this->getObject()->getOEmbedJson(),
             'text' => $this->getObject()->asText()
         ];
     }

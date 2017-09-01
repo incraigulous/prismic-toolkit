@@ -6,6 +6,10 @@ use Incraigulous\PrismicToolkit\Response;
 
 trait HasArrayableObject
 {
+    /**
+     * Recursively convert to an array.
+     * @return array
+     */
     public function toArray()
     {
         $all = $this->all();
@@ -13,12 +17,17 @@ trait HasArrayableObject
 
         foreach($all as $key => $value) {
             $response = Response::make($value);
-
-            if (is_object($response) && $response instanceof Arrayable) {
-                $array[$this->resolveFieldName($key)] = $response->toArray();
+            $result = null;
+            if (is_object($response)) {
+                if ($response instanceof Arrayable) {
+                    $result = $response->toArray();
+                } else {
+                    $result = (array) $response;
+                }
             } else {
-                $array[$this->resolveFieldName($key)] = $response;
+                $result = $response;
             }
+            $array[$this->resolveFieldName($key)] = $result;
         }
 
         return $array;

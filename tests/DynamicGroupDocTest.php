@@ -33,4 +33,30 @@ class DynamicGroupDocTest extends TestCase
         $groupDoc = Response::make(Prismic::getByUID('nested', 'nested'))->repeatables->first();
         $this->assertInstanceOf(DocumentWrapper::class, $groupDoc->repeatable);
     }
+
+    /**
+     * @test
+     *
+     */
+    public function it_is_jsonable()
+    {
+        $groupDoc = Response::make(Prismic::getByUID('nested', 'nested'))->repeatables->first();
+        $json = $groupDoc->toJson();
+        $std = json_decode($json);
+        $this->assertTrue(is_string($json));
+        $this->assertTrue(is_string($std->repeatable->title));
+    }
+
+    /**
+     * @test
+     *
+     */
+    public function it_is_arrayable()
+    {
+        $groupDoc = Response::make(Prismic::getByUID('nested', 'nested'))->repeatables->first();
+        $std = $groupDoc->toArray();
+
+        $this->assertTrue(is_array($std));
+        $this->assertTrue(is_string($std['repeatable']['title']));
+    }
 }

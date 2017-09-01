@@ -26,4 +26,37 @@ class DynamicSliceTest extends TestCase
 
         $this->assertInstanceOf(SliceWrapper::class, $slices->first());
     }
+
+    /**
+     * @test
+     *
+     */
+    public function it_is_jsonable()
+    {
+        $slices = Response::make(
+            Prismic::getByUID('blog_post', 'post-1')
+        )->body;
+
+        $json = $slices->toJson();
+        $std = json_decode($json);
+
+        $this->assertTrue(is_string($json));
+        $this->assertTrue(is_string($std[0])->text);
+    }
+
+    /**
+     * @test
+     *
+     */
+    public function it_is_arrayable()
+    {
+        $slices = Response::make(
+            Prismic::getByUID('blog_post', 'post-1')
+        )->body;
+
+        $array = $slices->toArray();
+
+        $this->assertTrue(is_array($array));
+        $this->assertTrue(is_string($array[0])['text']);
+    }
 }

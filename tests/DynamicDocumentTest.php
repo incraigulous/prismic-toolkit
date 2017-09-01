@@ -100,7 +100,13 @@ class DynamicDocumentTest extends TestCase
         $this->assertTrue(is_string($json));
         $this->stringContains('<', $array['title']);
         $this->stringContains('<', $array['rich_text']);
+        $this->assertTrue(is_string($array['image']['url']));
         $this->assertTrue(is_string($array['media']['url']));
+        $this->assertTrue(is_string($array['date']['date']));
+        $this->assertTrue(is_string($array['timestamp']['date']));
+        $this->assertTrue(is_string($array['color']['hex']));
+        $this->assertTrue(is_string($array['embed']['html']));
+        $this->assertTrue(is_string($array['geopoint']['text']));
         $this->assertTrue(is_numeric($array['number']));
         $this->assertTrue(is_string($array['key_text']));
         $this->assertTrue(is_string($array['select']));

@@ -1,21 +1,16 @@
 <?php
 
 namespace Incraigulous\PrismicToolkit\Tests;
+
 use Carbon\Carbon;
 use Incraigulous\PrismicToolkit\Wrappers\ColorWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\DocumentWrapper;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
 use Incraigulous\PrismicToolkit\Response;
 use Incraigulous\PrismicToolkit\Wrappers\GeoPointwrapper;
-use Incraigulous\PrismicToolkit\Wrappers\FileLinkWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\EmbedWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\ImageLinkWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\ImageWrapper;
-use Prismic\Fragment\Color;
-use Prismic\Fragment\Embed;
-use Prismic\Fragment\GeoPoint;
-use Prismic\Fragment\Image;
-use Prismic\Fragment\Link\ImageLink;
 
 /**
  * @group responses

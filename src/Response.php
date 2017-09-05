@@ -12,9 +12,9 @@ use Carbon\Carbon;
 use Incraigulous\PrismicToolkit\Helpers\LinkResolver;
 use Incraigulous\PrismicToolkit\Wrappers\Collection;
 use Incraigulous\PrismicToolkit\Wrappers\ColorWrapper;
-use Incraigulous\PrismicToolkit\Wrappers\EmbedWrapper;
+use Incraigulous\PrismicToolkit\Wrappers\GeoPointwrapper;
 use Incraigulous\PrismicToolkit\Wrappers\FileLinkWrapper;
-use Incraigulous\PrismicToolkit\Wrappers\GeoPointWrapper;
+use Incraigulous\PrismicToolkit\Wrappers\EmbedWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\GroupDocWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\ImageWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\ImageLinkWrapper;
@@ -52,7 +52,7 @@ class Response
      * An alias for make.
      *
      * @param $responseObject
-     * @return SliceWrapper|static
+     * @return mixed
      */
     public static function make($responseObject) {
         return self::handle($responseObject);
@@ -63,16 +63,16 @@ class Response
      * If the object passed isn't handled, return it as is.
      *
      * @param $responseObject
-     * @return Collection|DocumentWrapper|GroupDocWrapper|SliceWrapper|static
+     * @return mixed
      */
     public static function handle($responseObject)
     {
         switch (get_class($responseObject)) {
-            case CompositeSlice::class:
-                return new SliceWrapper($responseObject);
-                break;
             case Color::class:
                 return new ColorWrapper($responseObject);
+                break;
+            case CompositeSlice::class:
+                return self::handle($responseObject->getPrimary());
                 break;
             case Date::class:
             case Timestamp::class:

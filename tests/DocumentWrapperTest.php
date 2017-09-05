@@ -6,9 +6,9 @@ use Incraigulous\PrismicToolkit\Wrappers\ColorWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\DocumentWrapper;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
 use Incraigulous\PrismicToolkit\Response;
-use Incraigulous\PrismicToolkit\Wrappers\EmbedWrapper;
+use Incraigulous\PrismicToolkit\Wrappers\GeoPointwrapper;
 use Incraigulous\PrismicToolkit\Wrappers\FileLinkWrapper;
-use Incraigulous\PrismicToolkit\Wrappers\GeoPointWrapper;
+use Incraigulous\PrismicToolkit\Wrappers\EmbedWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\ImageLinkWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\ImageWrapper;
 use Prismic\Fragment\Color;
@@ -24,7 +24,7 @@ use Prismic\Fragment\Link\ImageLink;
  * Class DynamicCollectionTest
  * @package Incraigulous\PrismicToolkit\Tests
  */
-class DynamicDocumentTest extends TestCase
+class DocumentWrapperTest extends TestCase
 {
     /**
      * @test

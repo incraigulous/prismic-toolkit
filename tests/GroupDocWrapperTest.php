@@ -14,7 +14,7 @@ use Incraigulous\PrismicToolkit\Response;
  * Class DynamicGroupDocTest
  * @package Incraigulous\PrismicToolkit\Tests
  */
-class DynamicGroupDocTest extends TestCase
+class GroupDocWrapperTest extends TestCase
 {
     /**
      * @test

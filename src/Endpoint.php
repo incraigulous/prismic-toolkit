@@ -8,7 +8,9 @@
 
 namespace Incraigulous\PrismicToolkit;
 
-use Prismic\Api;
+use Incraigulous\PrismicToolkit\CacheRules\IgnoreHandshake;
+use Incraigulous\PrismicToolkit\Facades\Prismic;
+use Spatie\Regex\Regex;
 
 /**
  * An endpoint to be called by Prismic.
@@ -39,6 +41,38 @@ class Endpoint
     public function url()
     {
         return $this->url;
+    }
+
+    /**
+     * Remove the ref= from the url.
+     * @return string
+     */
+    public function urlWithoutRelease()
+    {
+        return Regex::replace('/&ref=[^&]*&/', '&', $this->url())->result();
+    }
+
+    /**
+     * Return a new endpoint instance with the latest URL
+     * @return Endpoint
+     */
+    public function latest()
+    {
+        return new Endpoint($this->latestUrl());
+    }
+
+    /**
+     * Get the url with the latest release ref
+     * @return string
+     */
+    public function latestUrl()
+    {
+        $refs = Prismic::getData()->getRefs();
+        $ref = collect($refs)->first(function($value) {
+            return $value->getId() == 'master';
+        })->getRef();
+
+        return $this->urlWithoutRelease() . '&ref=' . $ref;
     }
 
     /**

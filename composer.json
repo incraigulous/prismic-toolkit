@@ -5,7 +5,8 @@
     "require": {
         "prismic/php-sdk": "^3.3",
         "illuminate/support": "^5.4",
-        "nesbot/carbon": "^1.22"
+        "nesbot/carbon": "^1.22",
+        "spatie/regex": "^1.2"
     },
     "require-dev": {
         "phpunit/phpunit": "6.0",

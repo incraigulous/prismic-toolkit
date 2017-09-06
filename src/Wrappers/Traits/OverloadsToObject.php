@@ -86,6 +86,10 @@ trait OverloadsToObject
         return $this->getObject()->$name;
     }
 
+    /**
+     * Get all in object.
+     * @return array
+     */
     public function all()
     {
         return get_object_vars($this->getObject());

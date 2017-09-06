@@ -20,4 +20,6 @@ class PrismicEndpoint extends Model
     protected $fillable = [
         'endpoint',
     ];
+
+
 }

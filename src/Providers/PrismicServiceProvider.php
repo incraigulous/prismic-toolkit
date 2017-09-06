@@ -5,6 +5,8 @@ namespace Incraigulous\PrismicToolkit\Providers;
 use Incraigulous\PrismicToolkit\Cachers\LaravelTaggedCacher;
 use Illuminate\Support\ServiceProvider;
 use Incraigulous\PrismicToolkit\Console\Sync;
+use Incraigulous\PrismicToolkit\Models\PrismicEndpoint;
+use Incraigulous\PrismicToolkit\Observers\PrismicEndpointObserver;
 use Prismic\Api;
 
 /**
@@ -36,6 +38,8 @@ class PrismicServiceProvider extends ServiceProvider
                 Sync::class
             ]);
         }
+
+        PrismicEndpoint::observe(PrismicEndpointObserver::class);
     }
 
     /**

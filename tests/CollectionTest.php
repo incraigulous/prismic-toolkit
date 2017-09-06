@@ -65,7 +65,7 @@ class CollectionTest extends TestCase
         $array = json_decode($json);
         $this->assertTrue(is_string($json));
         $this->assertGreaterThan(0, $this->count($array));
-        $this->assertTrue(is_string($array[0]->repeatable->image->url));
+        $this->assertTrue(is_string($array[0]->repeatable->image->main->url));
     }
 
     /**
@@ -84,6 +84,6 @@ class CollectionTest extends TestCase
 
         $this->assertTrue(is_array($array));
         $this->assertGreaterThan(0, $this->count($array));
-        $this->assertTrue(is_string($array[0]['repeatable']['image']['url']));
+        $this->assertTrue(is_string($array[0]['repeatable']['image']['main']['url']));
     }
 }

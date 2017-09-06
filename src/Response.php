@@ -16,6 +16,7 @@ use Incraigulous\PrismicToolkit\Wrappers\GeoPointwrapper;
 use Incraigulous\PrismicToolkit\Wrappers\FileLinkWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\EmbedWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\GroupDocWrapper;
+use Incraigulous\PrismicToolkit\Wrappers\ImageViewWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\ImageWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\ImageLinkWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\SliceWrapper;
@@ -30,6 +31,7 @@ use Prismic\Fragment\GeoPoint;
 use Prismic\Fragment\Group;
 use Prismic\Fragment\GroupDoc;
 use Prismic\Fragment\Image;
+use Prismic\Fragment\ImageView;
 use Prismic\Fragment\Link\DocumentLink;
 use Prismic\Fragment\Link\FileLink;
 use Prismic\Fragment\Link\ImageLink;
@@ -104,6 +106,9 @@ class Response
                 break;
             case ImageLink::class:
                 return new ImageLinkWrapper($responseObject);
+                break;
+            case ImageView::class:
+                return new ImageViewWrapper($responseObject);
                 break;
             case Number::class:
                 return $responseObject->getValue();

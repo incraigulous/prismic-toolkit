@@ -2,10 +2,19 @@
 namespace Incraigulous\PrismicToolkit\Tests;
 
 use Faker\Factory;
+use GuzzleHttp\Client;
+use GuzzleHttp\HandlerStack;
+use GuzzleHttp\Middleware;
 use Illuminate\Foundation\Application;
+use Incraigulous\PrismicToolkit\Cachers\LaravelTaggedCacher;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
 use Incraigulous\PrismicToolkit\Models\PrismicEndpoint;
 use Incraigulous\PrismicToolkit\Providers\PrismicServiceProvider;
+use GuzzleHttp\Exception\RequestException;
+use GuzzleHttp\Handler\MockHandler;
+use GuzzleHttp\Psr7\Response;
+use GuzzleHttp\Psr7\Request;
+use Prismic\Api;
 
 class TestCase extends \Orchestra\Testbench\TestCase
 {
@@ -62,5 +71,21 @@ class TestCase extends \Orchestra\Testbench\TestCase
     {
         cache()->flush();
         PrismicEndpoint::truncate();
+    }
+
+    public function getApiWithHistory(&$historyContainer = [])
+    {
+        $history = Middleware::history($historyContainer);
+        $stack = HandlerStack::create();
+        $stack->push($history);
+        $client = new Client(['handler' => $stack]);
+
+        return Api::get(
+            config('prismic.endpoint'),
+            config('prismic.token'),
+            $client,
+            (config('prismic.cacher')) ? new LaravelTaggedCacher() : null,
+            config('prismic.cacheTime')
+        );
     }
 }

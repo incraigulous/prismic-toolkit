@@ -36,7 +36,7 @@ class LaravelCacher implements CacheInterface
         $endpoint = new Endpoint($key);
         $response = cache()->get($endpoint->makeCacheKey());
         if ( ! $response && $endpoint->shouldPreCache()) {
-            PrismicEndpoint::firstOrCreate(['endpoint' => $key]);
+            PrismicEndpoint::firstOrCreate(['endpoint' => $endpoint->urlWithoutRelease()]);
         }
 
         return $response;

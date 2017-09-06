@@ -4,6 +4,7 @@ namespace Incraigulous\PrismicToolkit\Tests;
 
 use Illuminate\Support\Facades\Artisan;
 use Incraigulous\PrismicToolkit\Cachers\LaravelTaggedCacher;
+use Incraigulous\PrismicToolkit\Endpoint;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
 use Incraigulous\PrismicToolkit\Models\PrismicEndpoint;
 
@@ -22,14 +23,14 @@ class SyncCommandTest extends TestCase
     public function it_caches_endpoints()
     {
         Prismic::getByUID('single', 'test-single');
-        $endpoint = PrismicEndpoint::all()->first()->endpoint;
+        $endpoint = new Endpoint(PrismicEndpoint::all()->first()->endpoint);
         Artisan::call('prismic:sync');
         $output = Artisan::output();
         $this->assertContains('Content Synced', $output);
-        $this->assertContains($endpoint . ' cached.', $output);
-        $this->assertTrue((new LaravelTaggedCacher())->has($endpoint));
+        $this->assertContains($endpoint->latestUrl() . ' cached.', $output);
+        $this->assertTrue((new LaravelTaggedCacher())->has($endpoint->latestUrl()));
         $this->flush();
-        $this->assertFalse((new LaravelTaggedCacher())->has($endpoint));
+        $this->assertFalse((new LaravelTaggedCacher())->has($endpoint->latestUrl()));
     }
 
     /**

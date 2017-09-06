@@ -95,7 +95,7 @@ class DocumentWrapperTest extends TestCase
         $this->assertTrue(is_string($json));
         $this->stringContains('<', $array['title']);
         $this->stringContains('<', $array['rich_text']);
-        $this->assertTrue(is_string($array['image']['url']));
+        $this->assertTrue(is_string($array['image']['main']['url']));
         $this->assertTrue(is_string($array['media']['url']));
         $this->assertTrue(is_string($array['date']['date']));
         $this->assertTrue(is_string($array['timestamp']['date']));

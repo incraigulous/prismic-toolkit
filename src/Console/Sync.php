@@ -48,7 +48,7 @@ class Sync extends Command
     public function handle()
     {
         $this->line('Starting sync.');
-        
+
         //Get the cacher implantation from the prismic SDK.
         $cache = Prismic::getCache();
 
@@ -58,18 +58,22 @@ class Sync extends Command
         // Clear the cache
         $cache->flush();
 
+
         //Loop through the endpoints and call them so SDK will cache them.
-        foreach ($endpoints as $endpoint) {
-            $this->line('Caching ' . $endpoint->endpoint);
+        foreach ($endpoints as $prismicEndpoint) {
+            $endpoint = (new Endpoint($prismicEndpoint->endpoint))->latest();
+
+            $this->line('Caching ' . $endpoint->url());
+
             try {
-                Prismic::submit(new Endpoint($endpoint->endpoint));
-                $this->info($endpoint->endpoint . ' cached.');
+                Prismic::submit($endpoint);
+                $this->info($endpoint->url() . ' cached.');
             } catch (Exception $ex) {
                 //A request failed. We'll assume the endpoint is no longer valid and delete it.
-                $this->error("Request failed: " . $endpoint->endpoint);
+                $this->error("Request failed: " . $endpoint->url());
                 $this->error($ex->getMessage());
                 $this->line('Deleting stored endpoint.');
-                $endpoint->delete();
+                $prismicEndpoint->delete();
                 $this->info('Endpoint deleted.');
             }
         }

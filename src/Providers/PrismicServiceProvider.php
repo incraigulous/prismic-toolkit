@@ -40,6 +40,7 @@ class PrismicServiceProvider extends ServiceProvider
         }
 
         $this->loadRoutesFrom(__DIR__.'/../../routes/hooks.php');
+        $this->loadRoutesFrom(__DIR__.'/../../routes/web.php');
 
         PrismicEndpoint::observe(PrismicEndpointObserver::class);
 

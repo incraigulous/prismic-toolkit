@@ -32,19 +32,16 @@ class PrismicServiceProvider extends ServiceProvider
             __DIR__.'/../../database/migrations/' => database_path('migrations')
         ], 'migrations');
 
-        //Register the commands
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                Sync::class
-            ]);
-        }
-
         $this->loadRoutesFrom(__DIR__.'/../../routes/hooks.php');
         $this->loadRoutesFrom(__DIR__.'/../../routes/web.php');
 
         PrismicEndpoint::observe(PrismicEndpointObserver::class);
 
         $router->middleware('verifyPrismicWebhook', VerifyPrismicWebhook::class);
+
+        $this->commands([
+            Sync::class
+        ]);
     }
 
     /**

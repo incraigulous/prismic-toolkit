@@ -26,10 +26,15 @@ class PrismicCacheController extends Controller
 
     public function queue()
     {
-        Prismic::getCache()->set('sync-queued', true, config('prismic.syncDelay'));
-        SyncPrismic::dispatch()->onQueue(config('prismic.queueDriver'))->delay(
-            Carbon::now()->addMinutes(config('prismic.syncDelay'))
-        );
+        $cacheKey = 'prismic:sync:queued';
+
+        if (!Prismic::getCache()->has($cacheKey)) {
+            Prismic::getCache()->set($cacheKey, true, config('prismic.syncDelay'));
+            SyncPrismic::dispatch()->onQueue(config('prismic.queueDriver'))->delay(
+                Carbon::now()->addMinutes(config('prismic.syncDelay'))
+            );
+        }
+
         return ['success' => 'true'];
     }
 

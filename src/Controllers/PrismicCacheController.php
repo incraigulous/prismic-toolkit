@@ -14,6 +14,7 @@ use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Artisan;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
 use Incraigulous\PrismicToolkit\Jobs\SyncPrismic;
+use Carbon\Carbon;
 
 class PrismicCacheController extends Controller
 {

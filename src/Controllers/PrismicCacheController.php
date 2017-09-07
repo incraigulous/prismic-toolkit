@@ -33,6 +33,6 @@ class PrismicCacheController extends Controller
 
     public function flush()
     {
-        return Prismic::getCache()-clear();
+        return Prismic::getCache()->clear();
     }
 }

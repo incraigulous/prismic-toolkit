@@ -29,5 +29,20 @@ return [
     /**
      * In minutes. 0 for forever.
      */
-    'cacheTime' => 0
+    'cacheTime' => 0,
+
+    /**
+     * The queue driver
+     */
+    'queueDriver' => 'sync',
+
+    /**
+     * How many minutes should content syncing as a result of webhooks be delayed
+     */
+    'syncDelay' => 5,
+
+    /**
+     * If a secret is defined on the prismic webhook
+     */
+    'webhookSecret' => null
 ];

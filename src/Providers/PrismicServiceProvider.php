@@ -2,9 +2,11 @@
 
 namespace Incraigulous\PrismicToolkit\Providers;
 
+use Illuminate\Routing\Router;
 use Incraigulous\PrismicToolkit\Cachers\LaravelTaggedCacher;
 use Illuminate\Support\ServiceProvider;
 use Incraigulous\PrismicToolkit\Console\Sync;
+use Incraigulous\PrismicToolkit\Middleware\VerifyPrismicWebhook;
 use Incraigulous\PrismicToolkit\Models\PrismicEndpoint;
 use Incraigulous\PrismicToolkit\Observers\PrismicEndpointObserver;
 use Prismic\Api;
@@ -16,11 +18,9 @@ use Prismic\Api;
 class PrismicServiceProvider extends ServiceProvider
 {
     /**
-     * Bootstrap the application services.
-     *
-     * @return void
+     * @param Router $router
      */
-    public function boot()
+    public function boot(Router $router)
     {
         //Register the config
         $this->publishes([
@@ -39,7 +39,11 @@ class PrismicServiceProvider extends ServiceProvider
             ]);
         }
 
+        $this->loadRoutesFrom(__DIR__.'/../../routes/hooks.php');
+
         PrismicEndpoint::observe(PrismicEndpointObserver::class);
+
+        $router->middleware('verifyPrismicWebhook', VerifyPrismicWebhook::class);
     }
 
     /**

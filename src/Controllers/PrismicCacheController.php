@@ -29,10 +29,12 @@ class PrismicCacheController extends Controller
         SyncPrismic::dispatch()->onQueue(config('prismic.queueDriver'))->delay(
             Carbon::now()->addMinutes(config('prismic.syncDelay'))
         );
+        return ['success' => 'true'];
     }
 
     public function flush()
     {
-        return Prismic::getCache()->clear();
+        Prismic::getCache()->clear();
+        return ['success' => 'true'];
     }
 }

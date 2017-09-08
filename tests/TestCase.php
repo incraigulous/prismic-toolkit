@@ -10,10 +10,6 @@ use Incraigulous\PrismicToolkit\Cachers\LaravelTaggedCacher;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
 use Incraigulous\PrismicToolkit\Models\PrismicEndpoint;
 use Incraigulous\PrismicToolkit\Providers\PrismicServiceProvider;
-use GuzzleHttp\Exception\RequestException;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\Psr7\Response;
-use GuzzleHttp\Psr7\Request;
 use Prismic\Api;
 
 class TestCase extends \Orchestra\Testbench\TestCase

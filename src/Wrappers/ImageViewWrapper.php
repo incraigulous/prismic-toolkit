@@ -2,13 +2,13 @@
 namespace Incraigulous\PrismicToolkit\Wrappers;
 
 use Incraigulous\PrismicToolkit\Wrappers\Traits\HasArrayableObject;
-use Incraigulous\PrismicToolkit\Wrappers\Traits\HasJasonableObject;
+use Incraigulous\PrismicToolkit\Wrappers\Traits\HasJsonableObject;
 use Incraigulous\PrismicToolkit\Wrappers\Traits\OverloadsToObject;
 use Prismic\Fragment\ImageView;
 
 class ImageViewWrapper
 {
-    use OverloadsToObject, HasArrayableObject, HasJasonableObject;
+    use OverloadsToObject, HasArrayableObject, HasJsonableObject;
 
     public function __construct(ImageView $object)
     {

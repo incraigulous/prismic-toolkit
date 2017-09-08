@@ -5,7 +5,6 @@ namespace Incraigulous\PrismicToolkit\Tests;
 use Incraigulous\PrismicToolkit\Wrappers\DocumentWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\GroupDocWrapper;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
-use Incraigulous\PrismicToolkit\Response;
 
 /**
  * @group responses
@@ -21,7 +20,7 @@ class GroupDocWrapperTest extends TestCase
      */
     public function it_can_make_dynamic_group_docs()
     {
-        $groupDoc = Response::make(Prismic::getByUID('nested', 'nested'))->repeatables->first();
+        $groupDoc = Prismic::getByUID('nested', 'nested')->repeatables->first();
         $this->assertInstanceOf(GroupDocWrapper::class, $groupDoc);
     }
 
@@ -30,7 +29,7 @@ class GroupDocWrapperTest extends TestCase
      */
     public function it_can_resolve_links()
     {
-        $groupDoc = Response::make(Prismic::getByUID('nested', 'nested'))->repeatables->first();
+        $groupDoc = Prismic::getByUID('nested', 'nested')->repeatables->first();
         $this->assertInstanceOf(DocumentWrapper::class, $groupDoc->repeatable);
     }
 
@@ -40,7 +39,7 @@ class GroupDocWrapperTest extends TestCase
      */
     public function it_is_jsonable()
     {
-        $groupDoc = Response::make(Prismic::getByUID('nested', 'nested'))->repeatables->first();
+        $groupDoc = Prismic::getByUID('nested', 'nested')->repeatables->first();
         $json = $groupDoc->toJson();
         $std = json_decode($json);
         $this->assertTrue(is_string($json));
@@ -53,7 +52,7 @@ class GroupDocWrapperTest extends TestCase
      */
     public function it_is_arrayable()
     {
-        $groupDoc = Response::make(Prismic::getByUID('nested', 'nested'))->repeatables->first();
+        $groupDoc = Prismic::getByUID('nested', 'nested')->repeatables->first();
         $std = $groupDoc->toArray();
 
         $this->assertTrue(is_array($std));

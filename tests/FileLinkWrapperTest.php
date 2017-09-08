@@ -2,7 +2,6 @@
 
 namespace Incraigulous\PrismicToolkit\Tests;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
-use Incraigulous\PrismicToolkit\Response;
 use Incraigulous\PrismicToolkit\Wrappers\FileLinkWrapper;
 
 
@@ -20,8 +19,7 @@ class FileLinkWrapperTest extends TestCase
      */
     public function it_can_resolve_file_link_wrappers()
     {
-        $single = Prismic::getByUID('single', 'test-single');
-        $document = Response::make($single);
+        $document = Prismic::getByUID('single', 'test-single');
         $this->assertInstanceOf(FileLinkWrapper::class, $document->file_link);
     }
 
@@ -30,8 +28,7 @@ class FileLinkWrapperTest extends TestCase
      */
     public function it_can_resolve_file_link_wrapper_content()
     {
-        $single = Prismic::getByUID('single', 'test-single');
-        $fileLink = Response::make($single)->file_link;
+        $fileLink = Prismic::getByUID('single', 'test-single')->file_link;
         $this->assertTrue(str_contains($fileLink->getFilename(), '.'));
     }
 
@@ -40,8 +37,7 @@ class FileLinkWrapperTest extends TestCase
      */
     public function it_is_arrayable()
     {
-        $single = Prismic::getByUID('single', 'test-single');
-        $fileLink = Response::make($single)->file_link;
+        $fileLink = Prismic::getByUID('single', 'test-single')->file_link;
         $array = $fileLink->toArray();
         $this->assertTrue(str_contains($array['filename'], '.'));
     }
@@ -51,8 +47,7 @@ class FileLinkWrapperTest extends TestCase
      */
     public function it_is_jsonable()
     {
-        $single = Prismic::getByUID('single', 'test-single');
-        $fileLink = Response::make($single)->file_link;
+        $fileLink = Prismic::getByUID('single', 'test-single')->file_link;
         $json = $fileLink->toJson();
         $this->assertTrue(is_string($json));
         $array = json_decode($json, 1);

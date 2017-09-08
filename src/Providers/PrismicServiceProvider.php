@@ -6,6 +6,7 @@ use Illuminate\Routing\Router;
 use Incraigulous\PrismicToolkit\Cachers\LaravelTaggedCacher;
 use Illuminate\Support\ServiceProvider;
 use Incraigulous\PrismicToolkit\Console\Sync;
+use Incraigulous\PrismicToolkit\FluentResponse;
 use Incraigulous\PrismicToolkit\Middleware\VerifyPrismicWebhook;
 use Incraigulous\PrismicToolkit\Models\PrismicEndpoint;
 use Incraigulous\PrismicToolkit\Observers\PrismicEndpointObserver;
@@ -53,12 +54,14 @@ class PrismicServiceProvider extends ServiceProvider
     {
         //Register the official prismic SDK
         $this->app->singleton('prismic', function ($app) {
-            return Api::get(
+            return FluentResponse::make(
+                Api::get(
                 config('prismic.endpoint'),
                 config('prismic.token'),
                 null,
                 (config('prismic.cacher')) ? new LaravelTaggedCacher() : null,
                 config('prismic.cacheTime')
+                )
             );
         });
 

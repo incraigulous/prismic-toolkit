@@ -9,7 +9,7 @@
 namespace Incraigulous\PrismicToolkit\Helpers;
 
 use Incraigulous\PrismicToolkit\Facades\Prismic;
-use Incraigulous\PrismicToolkit\Response;
+use Incraigulous\PrismicToolkit\FluentResponse;
 use Prismic\Fragment\Link\DocumentLink;
 use Prismic\Fragment\Link\FileLink;
 use Prismic\Fragment\Link\ImageLink;
@@ -40,13 +40,13 @@ class LinkResolver
 
     public static function resolveDocumentLink(DocumentLink $link)
     {
-        return Response::handle(
+        return FluentResponse::handle(
             Prismic::getById($link->getId())
         );
     }
 
     public static function resolveFileLink(LinkInterface $link)
     {
-        return Response::handle($link);
+        return FluentResponse::handle($link);
     }
 }

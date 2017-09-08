@@ -1,7 +1,7 @@
 <?php
 namespace Incraigulous\PrismicToolkit\Wrappers\Traits;
 
-use Incraigulous\PrismicToolkit\Response;
+use Incraigulous\PrismicToolkit\FluentResponse;
 
 trait OverloadsToObject
 {
@@ -39,7 +39,7 @@ trait OverloadsToObject
      */
     public function callMethod($name, $arguments)
     {
-        return call_user_func_array([$this->getObject(), $name], $arguments);
+        return FluentResponse::make(call_user_func_array([$this->getObject(), $name], $arguments));
     }
 
     /**
@@ -70,7 +70,7 @@ trait OverloadsToObject
      */
     public function get($name)
     {
-        return Response::handle(
+        return FluentResponse::handle(
             $this->getRaw($name)
         );
     }

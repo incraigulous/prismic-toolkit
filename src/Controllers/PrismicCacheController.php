@@ -9,7 +9,6 @@
 namespace Incraigulous\PrismicToolkit\Controllers;
 
 
-use Illuminate\Queue\Jobs\Job;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Artisan;
 use Incraigulous\PrismicToolkit\Facades\Prismic;

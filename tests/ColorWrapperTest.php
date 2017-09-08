@@ -2,7 +2,6 @@
 
 namespace Incraigulous\PrismicToolkit\Tests;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
-use Incraigulous\PrismicToolkit\Response;
 use Incraigulous\PrismicToolkit\Wrappers\ColorWrapper;
 
 
@@ -20,8 +19,7 @@ class ColorWrapperTest extends TestCase
      */
     public function it_can_resolve_color_wrappers()
     {
-        $single = Prismic::getByUID('single', 'test-single');
-        $document = Response::make($single);
+        $document = Prismic::getByUID('single', 'test-single');
         $this->assertInstanceOf(ColorWrapper::class, $document->color);
     }
 
@@ -30,8 +28,7 @@ class ColorWrapperTest extends TestCase
      */
     public function it_can_resolve_color_wrapper_content()
     {
-        $single = Prismic::getByUID('single', 'test-single');
-        $color = Response::make($single)->color;
+        $color = Prismic::getByUID('single', 'test-single')->color;
         $this->assertTrue(str_contains($color->getHexValue(), '#'));
     }
 
@@ -40,8 +37,7 @@ class ColorWrapperTest extends TestCase
      */
     public function it_is_arrayable()
     {
-        $single = Prismic::getByUID('single', 'test-single');
-        $color = Response::make($single)->color;
+        $color = Prismic::getByUID('single', 'test-single')->color;
         $array = $color->toArray();
         $this->assertTrue(str_contains($array['hex'], '#'));
     }
@@ -51,8 +47,7 @@ class ColorWrapperTest extends TestCase
      */
     public function it_is_jsonable()
     {
-        $single = Prismic::getByUID('single', 'test-single');
-        $color = Response::make($single)->color;
+        $color = Prismic::getByUID('single', 'test-single')->color;
         $json = $color->toJson();
         $this->assertTrue(is_string($json));
         $array = json_decode($json, 1);

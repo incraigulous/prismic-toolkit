@@ -2,7 +2,7 @@
 
 namespace Incraigulous\PrismicToolkit\Wrappers;
 
-use Incraigulous\PrismicToolkit\Response;
+use Incraigulous\PrismicToolkit\FluentResponse;
 
 class Collection extends \Illuminate\Support\Collection
 {
@@ -17,7 +17,7 @@ class Collection extends \Illuminate\Support\Collection
         $result = [];
 
         foreach($data as $key => $record) {
-            $result[$key] = Response::handle($record);
+            $result[$key] = FluentResponse::handle($record);
         }
 
         return $result;

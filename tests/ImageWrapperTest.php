@@ -2,7 +2,6 @@
 
 namespace Incraigulous\PrismicToolkit\Tests;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
-use Incraigulous\PrismicToolkit\Response;
 use Incraigulous\PrismicToolkit\Wrappers\ImageViewWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\ImageWrapper;
 
@@ -21,8 +20,7 @@ class ImageWrapperTest extends TestCase
      */
     public function it_can_resolve_image_wrappers()
     {
-        $single = Prismic::getByUID('single', 'test-single');
-        $document = Response::make($single);
+        $document = Prismic::getByUID('single', 'test-single');
         $this->assertInstanceOf(ImageWrapper::class, $document->image);
     }
 
@@ -31,8 +29,7 @@ class ImageWrapperTest extends TestCase
      */
     public function it_can_resolve_image_wrappers_content()
     {
-        $single = Prismic::getByUID('single', 'test-single');
-        $imageWrapper = Response::make($single)->image->main;
+        $imageWrapper = Prismic::getByUID('single', 'test-single')->image->main;
         $this->assertInstanceOf(ImageViewWrapper::class, $imageWrapper);
     }
 
@@ -41,8 +38,7 @@ class ImageWrapperTest extends TestCase
      */
     public function it_is_arrayable()
     {
-        $single = Prismic::getByUID('single', 'test-single');
-        $image = Response::make($single)->image;
+        $image = Prismic::getByUID('single', 'test-single')->image;
         $array = $image->toArray();
         $this->assertArrayHasKey('main', $array);
     }
@@ -52,8 +48,7 @@ class ImageWrapperTest extends TestCase
      */
     public function it_is_jsonable()
     {
-        $single = Prismic::getByUID('single', 'test-single');
-        $image = Response::make($single)->image;
+        $image = Prismic::getByUID('single', 'test-single')->image;
         $json = $image->toJson();
         $this->assertTrue(is_string($json));
         $array = json_decode($json, 1);

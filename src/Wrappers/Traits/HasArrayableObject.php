@@ -2,7 +2,7 @@
 namespace Incraigulous\PrismicToolkit\Wrappers\Traits;
 
 use Illuminate\Contracts\Support\Arrayable;
-use Incraigulous\PrismicToolkit\Response;
+use Incraigulous\PrismicToolkit\FluentResponse;
 
 trait HasArrayableObject
 {
@@ -16,7 +16,7 @@ trait HasArrayableObject
         $array = [];
 
         foreach($all as $key => $value) {
-            $response = Response::make($value);
+            $response = FluentResponse::make($value);
             $result = null;
             if (is_object($response)) {
                 if ($response instanceof Arrayable) {

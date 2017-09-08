@@ -6,7 +6,6 @@ use Carbon\Carbon;
 use Incraigulous\PrismicToolkit\Wrappers\ColorWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\DocumentWrapper;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
-use Incraigulous\PrismicToolkit\Response;
 use Incraigulous\PrismicToolkit\Wrappers\GeoPointwrapper;
 use Incraigulous\PrismicToolkit\Wrappers\EmbedWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\ImageLinkWrapper;
@@ -26,8 +25,7 @@ class DocumentWrapperTest extends TestCase
      */
     public function it_can_make_dynamic_documents()
     {
-        $single = Prismic::getByUID('single', 'test-single');
-        $document = Response::make($single);
+        $document = Prismic::getByUID('single', 'test-single');
         $this->assertInstanceOf(DocumentWrapper::class, $document);
     }
 
@@ -36,8 +34,7 @@ class DocumentWrapperTest extends TestCase
      */
     public function it_can_resolve_fields()
     {
-        $single = Prismic::getByUID('single', 'test-single');
-        $document = Response::make($single);
+        $document = Prismic::getByUID('single', 'test-single');
         $this->stringContains('<', $document->title);
         $this->stringContains('<', $document->rich_text);
         $this->assertInstanceOf(ImageWrapper::class, $document->image);
@@ -57,8 +54,7 @@ class DocumentWrapperTest extends TestCase
      */
     public function it_can_test_if_a_field_exists()
     {
-        $single = Prismic::getByUID('single', 'test-single');
-        $document = Response::make($single);
+        $document = Prismic::getByUID('single', 'test-single');
         $this->assertFalse($document->has('cats'));
         $this->assertTrue($document->has('title'));
         $this->assertFalse($document->exists('cats'));
@@ -70,8 +66,7 @@ class DocumentWrapperTest extends TestCase
      */
     public function it_is_arrayable()
     {
-        $single = Prismic::getByUID('single', 'test-single');
-        $document = Response::make($single);
+        $document = Prismic::getByUID('single', 'test-single');
         $array = $document->toArray();
 
         $this->assertTrue(is_array($array));
@@ -88,8 +83,7 @@ class DocumentWrapperTest extends TestCase
      */
     public function it_is_jsonable()
     {
-        $single = Prismic::getByUID('single', 'test-single');
-        $document = Response::make($single);
+        $document = Prismic::getByUID('single', 'test-single');
         $json = $document->toJson();
         $array = json_decode($json, true);
         $this->assertTrue(is_string($json));

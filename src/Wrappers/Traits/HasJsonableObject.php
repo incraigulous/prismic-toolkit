@@ -1,7 +1,7 @@
 <?php
 namespace Incraigulous\PrismicToolkit\Wrappers\Traits;
 
-trait HasJasonableObject
+trait HasJsonableObject
 {
     /**
      * Convert the object to its JSON representation.

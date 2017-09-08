@@ -2,7 +2,7 @@
 namespace Incraigulous\PrismicToolkit\Wrappers;
 
 
-use Incraigulous\PrismicToolkit\Response;
+use Incraigulous\PrismicToolkit\FluentResponse;
 
 class ImageWrapper extends FragmentWrapper
 {
@@ -11,10 +11,10 @@ class ImageWrapper extends FragmentWrapper
         $views = $this->getViews();
         $array = [];
         if (!count($views)) {
-            $array['main'] = Response::make($this->getView('main'))->toArray();
+            $array['main'] = FluentResponse::make($this->getView('main'))->toArray();
         } else {
             foreach($views as $view) {
-                $array['main'] = Response::make($view)->toArray();
+                $array['main'] = FluentResponse::make($view)->toArray();
             }
         }
         return $array;

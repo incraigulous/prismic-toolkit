@@ -12,14 +12,14 @@ namespace Incraigulous\PrismicToolkit\Wrappers;
 use Illuminate\Contracts\Support\Arrayable;
 use Illuminate\Contracts\Support\Jsonable;
 use Incraigulous\PrismicToolkit\Wrappers\Traits\HasArrayableObject;
-use Incraigulous\PrismicToolkit\Wrappers\Traits\HasJasonableObject;
+use Incraigulous\PrismicToolkit\Wrappers\Traits\HasJsonableObject;
 use Incraigulous\PrismicToolkit\Wrappers\Traits\OverloadsToObject;
 use Prismic\Fragment\Link\FileLink;
 use Prismic\Fragment\Link\ImageLink;
 
 class ImageLinkWrapper implements Arrayable, Jsonable
 {
-    use OverloadsToObject, HasArrayableObject, HasJasonableObject;
+    use OverloadsToObject, HasArrayableObject, HasJsonableObject;
 
     public function __construct(ImageLink $object)
     {

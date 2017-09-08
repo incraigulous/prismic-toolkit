@@ -197,17 +197,17 @@ class CacherTest extends TestCase
     public function it_does_not_precache_for_each_release()
     {
         $cacher = $this->getCacher();
-        $cacher->get('ONE.access_token?test=test&ref=OLD&test=test');
+        $cacher->get('ONE.access_token?test=test&ref=OLD');
         $countBefore = PrismicEndpoint::all()->count();
-        $cacher->get('TWO.access_token?test=test&ref=OLD&test=test');
+        $cacher->get('TWO.access_token?test=test&ref=OLD');
         $countAfter = PrismicEndpoint::all()->count();
         $this->assertGreaterThan($countBefore, $countAfter);
 
         $this->flush();
 
-        $cacher->get('TWO.access_token?test=test&ref=OLD&test=test');
+        $cacher->get('TWO.access_token?test=test&ref=OLD');
         $countBefore = PrismicEndpoint::all()->count();
-        $cacher->get('TWO.access_token?test=test&ref=NEW&test=test');
+        $cacher->get('TWO.access_token?test=test&ref=NEW');
         $countAfter = PrismicEndpoint::all()->count();
         $this->assertEquals($countBefore, $countAfter);
     }

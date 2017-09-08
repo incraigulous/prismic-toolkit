@@ -49,7 +49,7 @@ class Endpoint
      */
     public function urlWithoutRelease()
     {
-        return Regex::replace('/&ref=[^&]*&/', '&', $this->url())->result();
+        return Regex::replace('/&ref=[^&]*(&|$)/', '&', $this->url())->result();
     }
 
     /**

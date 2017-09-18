@@ -74,4 +74,22 @@ class EndpointTest extends TestCase
         $endpoint = new Endpoint($url . '/api#');
         $this->assertFalse($endpoint->shouldPreCache());
     }
+
+    /**
+     * @test
+     */
+    public function it_removes_refs_from_urls()
+    {
+        $endpoint = new Endpoint('http://www.google.com/api#?plant=flower&ref=3030303&cat=true');
+        $this->assertEquals('http://www.google.com/api#?plant=flower&cat=true', $endpoint->urlWithoutRelease());
+    }
+
+    /**
+     * @test
+     */
+    public function it_removes_refs_from_with_ref_at_end()
+    {
+        $endpoint = new Endpoint('http://www.google.com/api#?plant=flower&cat=true&ref=3030303');
+        $this->assertEquals('http://www.google.com/api#?plant=flower&cat=true', $endpoint->urlWithoutRelease());
+    }
 }

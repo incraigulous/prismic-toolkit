@@ -12,7 +12,7 @@ use Incraigulous\PrismicToolkit\Wrappers\GroupDocWrapper;
  *
  * Class SlicesTest
  * @package Incraigulous\PrismicToolkit\Tests
- */
+ */\
 class SlicesTest extends TestCase
 {
     /**

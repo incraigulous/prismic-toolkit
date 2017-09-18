@@ -2,14 +2,15 @@
 
 namespace Incraigulous\PrismicToolkit\Tests;
 
-use Incraigulous\PrismicToolkit\Wrappers\GroupDocWrapper;
+use Incraigulous\PrismicToolkit\Wrappers\CompositeSliceWrapper;
 use Incraigulous\PrismicToolkit\Facades\Prismic;
+use Incraigulous\PrismicToolkit\Wrappers\GroupDocWrapper;
 
 /**
  * @group responses
  * @group slices
  *
- * Class DynamicSliceTest
+ * Class SlicesTest
  * @package Incraigulous\PrismicToolkit\Tests
  */
 class SlicesTest extends TestCase
@@ -21,7 +22,8 @@ class SlicesTest extends TestCase
     {
         $slices = Prismic::getByUID('blog_post', 'post-1')->body;
 
-        $this->assertInstanceOf(GroupDocWrapper::class, $slices->first());
+        $this->assertInstanceOf(CompositeSliceWrapper::class, $slices->first());
+        $this->assertInstanceOf(GroupDocWrapper::class, $slices->first()->getDoc());
     }
 
     /**
@@ -32,5 +34,26 @@ class SlicesTest extends TestCase
         $slices = Prismic::getByUID('blog_post', 'post-1')->body;
 
         $this->assertTrue(str_contains($slices->first()->text,'<'));
+    }
+
+    /**
+     * @test
+     */
+    public function it_is_arrayable()
+    {
+        $slices = Prismic::getByUID('blog_post', 'post-1')->body;
+        $array = $slices->toArray();
+        $this->assertArrayHasKey('type', $array[0]);
+    }
+
+    /**
+     */
+    public function it_is_jsonable()
+    {
+        $slices = Prismic::getByUID('blog_post', 'post-1')->body;
+        $json = $slices->toJson();
+        $this->assertTrue(is_string($json));
+        $array = json_decode($json, 1);
+        $this->assertArrayHasKey('type', $array[0]);
     }
 }

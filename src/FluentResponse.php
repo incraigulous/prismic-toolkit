@@ -6,6 +6,7 @@ use Incraigulous\PrismicToolkit\Helpers\LinkResolver;
 use Incraigulous\PrismicToolkit\Wrappers\ApiWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\Collection;
 use Incraigulous\PrismicToolkit\Wrappers\ColorWrapper;
+use Incraigulous\PrismicToolkit\Wrappers\CompositeSliceWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\GeoPointwrapper;
 use Incraigulous\PrismicToolkit\Wrappers\FileLinkWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\EmbedWrapper;
@@ -86,7 +87,7 @@ class FluentResponse
                 return new ColorWrapper($response);
                 break;
             case CompositeSlice::class:
-                return self::handle($response->getPrimary());
+                return new CompositeSliceWrapper($response);
                 break;
             case Date::class:
             case Timestamp::class:

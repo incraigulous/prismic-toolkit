@@ -36,20 +36,21 @@ class CompositeSliceWrapper implements Arrayable, Jsonable
      */
     public function toArray()
     {
-        $document = $this->getDoc()->toArray();
+        $document = $this->getNonRepeating()->toArray();
         $document['type'] = $this->getType();
+        $document['repeating'] = $this->getRepeating();
         return $document;
     }
 
     /**
-     * Get the wrapped slice
+     * Get the non repeatable field
      *
      * @return mixed
      */
-    public function getDoc()
+    public function getNonRepeating()
     {
         return FluentResponse::handle(
-            $this->getDocRaw()
+            $this->getNonRepeatingRaw()
         );
     }
 
@@ -58,9 +59,31 @@ class CompositeSliceWrapper implements Arrayable, Jsonable
      *
      * @return mixed
      */
-    public function getDocRaw()
+    public function getNonRepeatingRaw()
     {
         return $this->getObject()->getPrimary();
+    }
+
+    /**
+     * Get the wrapped slice
+     *
+     * @return mixed
+     */
+    public function getRepeating()
+    {
+        return FluentResponse::handle(
+            $this->getRepeatingRaw()
+        );
+    }
+
+    /**
+     * Get the raw prismic slice
+     *
+     * @return mixed
+     */
+    public function getRepeatingRaw()
+    {
+        return $this->getObject()->getItems();
     }
 
     /**
@@ -71,7 +94,7 @@ class CompositeSliceWrapper implements Arrayable, Jsonable
      */
     public function get($name)
     {
-        return $this->getDoc()->get($name);
+        return $this->getNonRepeating()->get($name);
     }
 
     /**
@@ -82,6 +105,6 @@ class CompositeSliceWrapper implements Arrayable, Jsonable
      */
     public function exists($name)
     {
-        return $this->getDoc()->exists($name);
+        return $this->getNonRepeating()->exists($name);
     }
 }

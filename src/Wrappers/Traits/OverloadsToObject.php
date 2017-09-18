@@ -50,16 +50,64 @@ trait OverloadsToObject
      */
     public function __get($name)
     {
+        /**
+         * Does a property already exist on THIS object?
+         */
         if (property_exists($this, $name))
         {
             return $this->$name;
         }
 
+        /**
+         * Does a getter method exist for the property?
+         */
+        if ($this->hasGetter($name))
+        {
+            return $this->resolveGetter($name);
+        }
+
+        /**
+         * Does the property exist on the TARGET object?
+         */
         if (!$this->exists($name)) {
             return null;
         }
 
+        /**
+         * Resolve the property from the target object
+         */
         return $this->get($name);
+    }
+
+    /**
+     * Return the getter method name for a given property
+     * @param $name
+     * @return string
+     */
+    protected function resolveGetterMethodName($name)
+    {
+        return 'get' . ucfirst($name);
+    }
+
+    /**
+     * Does a getter method exist for a given property?
+     * @param $name
+     * @return bool
+     */
+    protected function hasGetter($name)
+    {
+        return method_exists($this, $this->resolveGetterMethodName($name));
+    }
+
+    /**
+     * Resolve a getter method by name
+     * @param $name
+     * @return bool
+     */
+    public function resolveGetter($name)
+    {
+        $methodName = $this->resolveGetterMethodName($name);
+        return call_user_func_array([$this, $methodName], []);
     }
 
     /**

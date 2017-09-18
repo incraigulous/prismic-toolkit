@@ -47,6 +47,7 @@ class SlicesTest extends TestCase
     }
 
     /**
+     * @test
      */
     public function it_is_jsonable()
     {
@@ -55,5 +56,14 @@ class SlicesTest extends TestCase
         $this->assertTrue(is_string($json));
         $array = json_decode($json, 1);
         $this->assertArrayHasKey('type', $array[0]);
+    }
+
+    /**
+     * @test
+     */
+    public function it_can_get_the_type()
+    {
+        $slice = Prismic::getByUID('blog_post', 'post-1')->body->first();
+        $this->assertEquals($slice->type, 'text');
     }
 }

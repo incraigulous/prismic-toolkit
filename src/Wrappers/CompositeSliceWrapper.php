@@ -26,13 +26,18 @@ class CompositeSliceWrapper implements Arrayable, Jsonable
         $this->object = $object;
     }
 
+    public function getType()
+    {
+        return $this->getObject()->getSliceType();
+    }
+
     /**
      * @return array
      */
     public function toArray()
     {
         $document = $this->getDoc()->toArray();
-        $document['type'] = $this->getObject()->getSliceType();
+        $document['type'] = $this->getType();
         return $document;
     }
 

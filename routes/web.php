@@ -2,7 +2,7 @@
 Route::namespace('Incraigulous\PrismicToolkit\Controllers')
     ->prefix('prismic')
     ->group(function () {
-        Route::get('sync', 'PrismicCacheController@sync');
-        Route::get('flush', 'PrismicCacheController@flush');
-        Route::get('queue', 'PrismicCacheController@queue');
+        Route::any('sync', 'PrismicCacheController@sync');
+        Route::any('flush', 'PrismicCacheController@flush');
+        Route::any('queue', 'PrismicCacheController@queue');
     });

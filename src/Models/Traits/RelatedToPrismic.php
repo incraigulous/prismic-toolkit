@@ -1,19 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: craigw
- * Date: 9/20/17
- * Time: 2:19 PM
- */
-
 namespace Incraigulous\PrismicToolkit\Models\Traits;
 
 use Incraigulous\PrismicToolkit\Facades\Prismic;
 
 trait RelatedToPrismic
 {
-
-    public $prismicFieldName = 'prismic';
     public $prismicIdName = 'prismic_id';
 
     /**
@@ -21,7 +12,7 @@ trait RelatedToPrismic
      */
     public function getPrismicId() {
         $attribute = $this->prismicIdName;
-        $this->$attribute;
+        return $this->$attribute;
     }
 
 
@@ -40,7 +31,6 @@ trait RelatedToPrismic
      */
     public function getPrismicAttribute()
     {
-        $this->appends = array_unique(array_merge($this->appends, [$this->prismicFieldName]));
         return $this->prismic();
     }
 }

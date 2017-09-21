@@ -12,7 +12,7 @@ use Incraigulous\PrismicToolkit\Wrappers\GroupDocWrapper;
  *
  * Class SlicesTest
  * @package Incraigulous\PrismicToolkit\Tests
- */\
+ */
 class SlicesTest extends TestCase
 {
     /**
@@ -23,7 +23,7 @@ class SlicesTest extends TestCase
         $slices = Prismic::getByUID('blog_post', 'post-1')->body;
 
         $this->assertInstanceOf(CompositeSliceWrapper::class, $slices->first());
-        $this->assertInstanceOf(GroupDocWrapper::class, $slices->first()->getDoc());
+        $this->assertInstanceOf(GroupDocWrapper::class, $slices->first()->getNonRepeating());
     }
 
     /**

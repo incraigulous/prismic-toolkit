@@ -8,15 +8,17 @@ class ImageWrapper extends FragmentWrapper
 {
     public function toArray()
     {
-        $views = $this->getViews();
+        $views = $this->getObject()->getViews();
         $array = [];
-        if (!count($views)) {
-            $array['main'] = FluentResponse::make($this->getView('main'))->toArray();
-        } else {
-            foreach($views as $view) {
-                $array['main'] = FluentResponse::make($view)->toArray();
-            }
+
+        //Add all the alternate image sizes
+        foreach($views as $viewName => $view) {
+            $array[$viewName] = FluentResponse::make($view)->toArray();
         }
+
+        //The main image view wouldn't have been included
+        $array['main'] = FluentResponse::make($this->getView('main'))->toArray();
+
         return $array;
     }
 

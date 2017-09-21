@@ -53,5 +53,6 @@ class ImageWrapperTest extends TestCase
         $this->assertTrue(is_string($json));
         $array = json_decode($json, 1);
         $this->assertArrayHasKey('main', $array);
+        $this->assertArrayHasKey('retina', $array);
     }
 }

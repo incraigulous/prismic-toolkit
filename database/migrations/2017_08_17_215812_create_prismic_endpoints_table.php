@@ -15,7 +15,7 @@ class CreatePrismicEndpointsTable extends Migration
     {
         Schema::create('prismic_endpoints', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('endpoint', 500);
+            $table->text('endpoint');
             $table->timestamps();
         });
     }

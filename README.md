@@ -1,4 +1,4 @@
-![Prismic Toolkit](blob:https://www.gitbook.com/1a304647-0258-4075-9495-21e0e87beb75)
+![Prismic Toolkit](https://www.gitbook.com/1a304647-0258-4075-9495-21e0e87beb75)
 
 ### Click here for the documentation.
 

@@ -1,6 +1,6 @@
-![Prismic Toolkit](https://www.gitbook.com/1a304647-0258-4075-9495-21e0e87beb75)
+![Prismic Toolkit](https://raw.githubusercontent.com/incraigulous/prismic-toolkit/master/art/hero.jpg)
 
-### Click here for the documentation.
+### [Click here for the documentation.](https://incraigulous.gitbooks.io/prismic-toolkit/)
 
 A suite of helpful tools for working with Prismic. You can use some or all of them. There are some Laravel specific tools, but you don't have to use Laravel to use this package.
 

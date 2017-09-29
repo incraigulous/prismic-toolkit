@@ -18,8 +18,6 @@ A suite of helpful tools for working with Prismic. You can use some or all of th
 - A Laravel tagged cacher
 - A Laravel non-tagged cacher
 - Customizable cache rules so you can miro-manage which resources should be cached.
-- Precaching
-- Cache updating via command line
 - Endpoints to bust the cache and resync content via webhook
 - Prismic webhook secret validation middleware
 - A model trait to create relationships between database records and prismic resources

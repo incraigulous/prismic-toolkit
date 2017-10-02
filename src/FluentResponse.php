@@ -17,6 +17,7 @@ use Incraigulous\PrismicToolkit\Wrappers\ImageLinkWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\ResponseWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\SliceWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\DocumentWrapper;
+use Incraigulous\PrismicToolkit\Wrappers\StructuredTextWrapper;
 use Incraigulous\PrismicToolkit\Wrappers\WebLinkWrapper;
 use Prismic\Api;
 use Prismic\Document;
@@ -133,7 +134,7 @@ class FluentResponse
                 return new Collection($response->getSlices());
                 break;
             case StructuredText::class:
-                return $response->asHtml();
+                return new StructuredTextWrapper($response);
                 break;
             case Text::class:
                 return $response->asText();

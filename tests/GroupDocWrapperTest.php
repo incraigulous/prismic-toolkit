@@ -43,7 +43,7 @@ class GroupDocWrapperTest extends TestCase
         $json = $groupDoc->toJson();
         $std = json_decode($json);
         $this->assertTrue(is_string($json));
-        $this->assertTrue(is_string($std->repeatable->title));
+        $this->assertTrue(is_string($std->repeatable->title->html));
     }
 
     /**
@@ -54,8 +54,7 @@ class GroupDocWrapperTest extends TestCase
     {
         $groupDoc = Prismic::getByUID('nested', 'nested')->repeatables->first();
         $std = $groupDoc->toArray();
-
         $this->assertTrue(is_array($std));
-        $this->assertTrue(is_string($std['repeatable']['title']));
+        $this->assertTrue(is_string($std['repeatable']['title']['text']));
     }
 }

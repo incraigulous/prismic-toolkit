@@ -17,4 +17,12 @@ class EmbedWrapper extends FragmentWrapper
             'text' => $this->getObject()->asText()
         ];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getObject()->asHtml();
+    }
 }

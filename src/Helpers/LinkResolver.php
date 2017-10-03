@@ -29,12 +29,8 @@ class LinkResolver
             case DocumentLink::class:
                 return self::resolveDocumentLink($link);
                 break;
-            case FileLink::class:
-            case ImageLink::class:
-                return self::resolveFileLink($link);
-                break;
             default:
-                $link->getUrl();
+                return FluentResponse::handle($link);
         }
     }
 
@@ -43,10 +39,5 @@ class LinkResolver
         return FluentResponse::handle(
             Prismic::getById($link->getId())
         );
-    }
-
-    public static function resolveFileLink(LinkInterface $link)
-    {
-        return FluentResponse::handle($link);
     }
 }

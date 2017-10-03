@@ -140,7 +140,7 @@ class FluentResponse
                 return $response->asText();
                 break;
             case WebLink::class:
-                return LinkResolver::resolve($response);
+                return new WebLinkWrapper($response);
                 break;
             default:
                 return $response;

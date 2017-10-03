@@ -39,4 +39,12 @@ class ImageLinkWrapper implements Arrayable, Jsonable
             'text' => $this->getObject()->asText()
         ];
     }
+
+    /**
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getObject()->getUrl();
+    }
 }

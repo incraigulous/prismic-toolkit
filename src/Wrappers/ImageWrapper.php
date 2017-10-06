@@ -30,6 +30,18 @@ class ImageWrapper extends FragmentWrapper
      */
     public function getRaw($name)
     {
-        return $this->getObject()->getView($name);
+        return $this->getView($name);
+    }
+
+    /**
+     * Does an image view exist?
+     *
+     * @param $name
+     * @return bool
+     */
+    public function exists($name)
+    {
+        if ($name == 'main') return true;
+        return array_key_exists($name, $this->getViews());
     }
 }

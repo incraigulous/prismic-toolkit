@@ -44,6 +44,8 @@ class TestCase extends \Orchestra\Testbench\TestCase
 
     protected function getEnvironmentSetUp($app)
     {
+        $app['config']->set('app.key', 'base64:L83oj15UHX1ew4LSqpdddwIBLJIdRj59rvUmU7Vd+AU=');
+        $app['config']->set('app.cypher', 'AES-256-CBC');
         $app['config']->set('cache.default', 'memcached');
         $app['config']->set('database.connections.testbench', [
             'driver'   => 'sqlite',

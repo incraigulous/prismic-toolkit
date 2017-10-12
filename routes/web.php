@@ -2,7 +2,11 @@
 Route::namespace('Incraigulous\PrismicToolkit\Controllers')
     ->prefix('prismic')
     ->group(function () {
-        Route::any('sync', 'PrismicCacheController@sync');
-        Route::any('flush', 'PrismicCacheController@flush');
-        Route::any('queue', 'PrismicCacheController@queue');
+        Route::any('sync', 'CacheController@sync');
+        Route::any('flush', 'CacheController@flush');
+        Route::any('queue', 'CacheController@queue');
+        Route::get('download/{token}', 'DownloadController@show')
+            ->name('prismic-download');
+        Route::get('download/{token}/{expireToken}', 'DownloadController@temporary')
+            ->name('prismic-temporary-download');
     });

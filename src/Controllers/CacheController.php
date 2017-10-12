@@ -15,7 +15,7 @@ use Incraigulous\PrismicToolkit\Facades\Prismic;
 use Incraigulous\PrismicToolkit\Jobs\SyncPrismic;
 use Carbon\Carbon;
 
-class PrismicCacheController extends Controller
+class CacheController extends Controller
 {
     public function sync()
     {

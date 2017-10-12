@@ -72,7 +72,7 @@ class FluentResponse
             return $response;
         }
 
-        if (is_array($response) && !isAssoc($response)) {
+        if (is_array($response) && !is_assoc($response)) {
             return new Collection($response);
         }
 

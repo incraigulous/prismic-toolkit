@@ -92,7 +92,7 @@ class FluentResponse
                 break;
             case Date::class:
             case Timestamp::class:
-                return Carbon::parse($response->getValue());
+                return new Carbon($response->getValue(), config('prismic.timezone'));
                 break;
             case Document::class:
                 return new DocumentWrapper($response);

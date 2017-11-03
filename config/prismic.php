@@ -44,5 +44,7 @@ return [
     /**
      * If a secret is defined on the prismic webhook
      */
-    'webhookSecret' => null
+    'webhookSecret' => null,
+
+    'timezone' => 'UTC'
 ];

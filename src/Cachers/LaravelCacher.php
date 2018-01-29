@@ -14,8 +14,11 @@ class LaravelCacher implements CacheInterface
 {
     /**
      * Does the key exist?
+     *
      * @param $key
+     *
      * @return mixed
+     * @throws \Exception
      */
     public function has($key)
     {
@@ -29,7 +32,9 @@ class LaravelCacher implements CacheInterface
      * Stores the key to be precached if the response exists.
      *
      * @param string $key
+     *
      * @return mixed
+     * @throws \Exception
      */
     public function get($key)
     {
@@ -45,13 +50,11 @@ class LaravelCacher implements CacheInterface
     /**
      * Cache an item.
      *
-     * If no TTL is provided, it will be cached for ever.
-     *
-     * Note: Prismic will pass 315360000 instead of zero for zero ttl's.
-     *
-     * @param string $key
+     * @param string    $key
      * @param \stdClass $value
-     * @param int $ttl
+     * @param int       $ttl
+     *
+     * @throws \Exception
      */
     public function set($key, $value, $ttl = 0)
     {
@@ -71,6 +74,8 @@ class LaravelCacher implements CacheInterface
      * @param $key
      * @param $value
      * @param $ttl
+     *
+     * @throws \Exception
      */
     public function put($key, $value, $ttl)
     {
@@ -83,6 +88,8 @@ class LaravelCacher implements CacheInterface
      *
      * @param $key
      * @param $value
+     *
+     * @throws \Exception
      */
     public function forever($key, $value)
     {
@@ -94,7 +101,9 @@ class LaravelCacher implements CacheInterface
      * Remove an item from the cache.
      *
      * @param $key
+     *
      * @return mixed
+     * @throws \Exception
      */
     public function forget($key)
     {
@@ -106,7 +115,9 @@ class LaravelCacher implements CacheInterface
      * Alias for forget.
      *
      * @param string $key
+     *
      * @return mixed
+     * @throws \Exception
      */
     public function delete($key)
     {
@@ -118,6 +129,7 @@ class LaravelCacher implements CacheInterface
      * Clear the cache.
      *
      * @return mixed
+     * @throws \Exception
      */
     public function flush()
     {
@@ -128,6 +140,7 @@ class LaravelCacher implements CacheInterface
      * Alias for clear.
      *
      * @return mixed
+     * @throws \Exception
      */
     public function clear()
     {

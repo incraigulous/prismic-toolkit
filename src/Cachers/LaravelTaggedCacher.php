@@ -4,7 +4,6 @@ namespace Incraigulous\PrismicToolkit\Cachers;
 
 /**
  * Adapter service compatible with Laravel and Prismic caching.
- *
  */
 use Incraigulous\PrismicToolkit\Endpoint;
 use Incraigulous\PrismicToolkit\Models\PrismicEndpoint;
@@ -14,8 +13,11 @@ class LaravelTaggedCacher implements CacheInterface
 {
     /**
      * Does the key exist?
+     *
      * @param $key
+     *
      * @return mixed
+     * @throws \Exception
      */
     public function has($key)
     {
@@ -29,7 +31,9 @@ class LaravelTaggedCacher implements CacheInterface
      * Stores the key to be precached if the response exists.
      *
      * @param string $key
+     *
      * @return mixed
+     * @throws \Exception
      */
     public function get($key)
     {
@@ -47,11 +51,13 @@ class LaravelTaggedCacher implements CacheInterface
      *
      * If no TTL is provided, it will be cached for ever.
      *
-     * Note: Prismic will pass 315360000 instead of zero for zero ttl's.
+     * Note: Prismic will pass 315360000 instead of zero for zero ttls.
      *
-     * @param string $key
+     * @param string    $key
      * @param \stdClass $value
-     * @param int $ttl
+     * @param int       $ttl
+     *
+     * @throws \Exception
      */
     public function set($key, $value, $ttl = 0)
     {
@@ -71,6 +77,8 @@ class LaravelTaggedCacher implements CacheInterface
      * @param $key
      * @param $value
      * @param $ttl
+     *
+     * @throws \Exception
      */
     public function put($key, $value, $ttl)
     {
@@ -83,6 +91,8 @@ class LaravelTaggedCacher implements CacheInterface
      *
      * @param $key
      * @param $value
+     *
+     * @throws \Exception
      */
     public function forever($key, $value)
     {
@@ -94,7 +104,9 @@ class LaravelTaggedCacher implements CacheInterface
      * Remove an item from the cache.
      *
      * @param $key
+     *
      * @return mixed
+     * @throws \Exception
      */
     public function forget($key)
     {
@@ -106,7 +118,9 @@ class LaravelTaggedCacher implements CacheInterface
      * Alias for forget.
      *
      * @param string $key
+     *
      * @return mixed
+     * @throws \Exception
      */
     public function delete($key)
     {
@@ -118,6 +132,7 @@ class LaravelTaggedCacher implements CacheInterface
      * Clear the cache.
      *
      * @return mixed
+     * @throws \Exception
      */
     public function flush()
     {
@@ -127,7 +142,8 @@ class LaravelTaggedCacher implements CacheInterface
     /**
      * Alias for clear.
      *
-     * @return mixed
+     * @return mixed|void
+     * @throws \Exception
      */
     public function clear()
     {

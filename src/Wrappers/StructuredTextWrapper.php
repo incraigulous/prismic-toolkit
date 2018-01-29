@@ -60,7 +60,7 @@ class StructuredTextWrapper implements Arrayable, Jsonable
      */
     public function isEmpty()
     {
-        return (bool) $this->getText();
+        return ! (bool) $this->getText();
     }
 
     /**

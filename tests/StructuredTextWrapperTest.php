@@ -54,4 +54,13 @@ class StructuredTextWrapperTest extends TestCase
         $this->assertArrayHasKey('text', $array);
         $this->assertEquals($field, $array['html']);
     }
+
+    /**
+     * @test
+     */
+    public function emptied_fields_are_falsy()
+    {
+        $single = Prismic::getByUID('single', 'test-single');
+        $this->assertNull($single->deleted);
+    }
 }

@@ -9,6 +9,7 @@ class ImageWrapper extends FragmentWrapper
     public function toArray()
     {
         $views = $this->getObject()->getViews();
+
         $array = [];
 
         //Add all the alternate image sizes

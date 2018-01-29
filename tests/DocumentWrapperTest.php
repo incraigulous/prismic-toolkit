@@ -100,4 +100,14 @@ class DocumentWrapperTest extends TestCase
         $this->assertTrue(is_string($array['key_text']));
         $this->assertTrue(is_string($array['select']));
     }
+
+    /**
+     * @test
+     */
+    public function it_can_overload_to_getters()
+    {
+        $document = Prismic::getByUID('single', 'test-single');
+        $this->assertEquals($document->getId(), $document->id);
+        $this->assertEquals($document->getUid(), $document->uid);
+    }
 }

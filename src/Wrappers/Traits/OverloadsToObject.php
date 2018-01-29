@@ -2,6 +2,7 @@
 namespace Incraigulous\PrismicToolkit\Wrappers\Traits;
 
 use Incraigulous\PrismicToolkit\FluentResponse;
+use ReflectionMethod;
 
 trait OverloadsToObject
 {
@@ -44,9 +45,10 @@ trait OverloadsToObject
 
     /**
      * Overload properties to fields
-     *
      * @param $name
-     * @return DynamicSlice|static
+     *
+     * @return bool|DynamicSlice|StructuredTextDummy|mixed|null|static
+     * @throws \ReflectionException
      */
     public function __get($name)
     {
@@ -59,6 +61,13 @@ trait OverloadsToObject
         }
 
         /**
+         * Does the property exist on the TARGET object?
+         */
+        if ($this->exists($name)) {
+            return $this->get($name);
+        }
+
+        /**
          * Does a getter method exist for the property?
          */
         if ($this->hasGetter($name))
@@ -66,17 +75,7 @@ trait OverloadsToObject
             return $this->resolveGetter($name);
         }
 
-        /**
-         * Does the property exist on the TARGET object?
-         */
-        if (!$this->exists($name)) {
-            return null;
-        }
-
-        /**
-         * Resolve the property from the target object
-         */
-        return $this->get($name);
+        return null;
     }
 
     /**
@@ -90,13 +89,22 @@ trait OverloadsToObject
     }
 
     /**
-     * Does a getter method exist for a given property?
+     *  Does a getter method exist on this for a given property?
      * @param $name
+     *
      * @return bool
+     * @throws \ReflectionException
      */
-    protected function hasGetter($name)
+    protected function hasLocalGetter($name)
     {
-        return method_exists($this, $this->resolveGetterMethodName($name));
+        $hasMethod = method_exists($this, $this->resolveGetterMethodName($name));
+        $numParams = 0;
+        if ($hasMethod) {
+            $method = new ReflectionMethod($this, $this->resolveGetterMethodName($name));
+            $numParams = count($method->getParameters());
+        }
+
+        return $hasMethod && $numParams === 0;
     }
 
     /**
@@ -104,10 +112,70 @@ trait OverloadsToObject
      * @param $name
      * @return bool
      */
-    public function resolveGetter($name)
+    protected function resolveLocaletter($name)
     {
         $methodName = $this->resolveGetterMethodName($name);
+
         return call_user_func_array([$this, $methodName], []);
+    }
+
+    /**
+     * Does a getter method exist on the object for a given property?
+     * @param $name
+     *
+     * @return bool
+     * @throws \ReflectionException
+     */
+    protected function hasObjectGetter($name)
+    {
+        $hasMethod = method_exists($this->getObject(), $this->resolveGetterMethodName($name));
+        $numParams = 0;
+        if ($hasMethod) {
+            $method = new ReflectionMethod($this->getObject(), $this->resolveGetterMethodName($name));
+            $numParams = count($method->getParameters());
+        }
+
+        return $hasMethod && $numParams === 0;
+    }
+
+    /**
+     * Resolve a getter method by name
+     * @param $name
+     * @return bool
+     */
+    public function resolveObjectGetter($name)
+    {
+        $methodName = $this->resolveGetterMethodName($name);
+
+        return call_user_func_array([$this->getObject(), $methodName], []);
+    }
+
+    /**
+     * Does a getter method exist for a given property?
+     * @param $name
+     *
+     * @return bool
+     * @throws \ReflectionException
+     */
+    protected function hasGetter($name)
+    {
+        return $this->hasLocalGetter($name) || $this->hasObjectGetter($name);
+    }
+
+    /**
+     * Resolve a getter method by name
+     * @param $name
+     *
+     * @return bool|mixed
+     * @throws \ReflectionException
+     */
+    public function resolveGetter($name)
+    {
+        if ($this->hasLocalGetter($name)) {
+            return $this->resolveLocaletter($name);
+        } elseif ($this->hasObjectGetter($name)) {
+            return $this->resolveObjectGetter($name);
+        }
     }
 
     /**

@@ -29,5 +29,15 @@
             "name": "Incraigulous",
             "email": "me@craigwann.com"
         }
-    ]
+    ],
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Incraigulous\\PrismicToolkit\\Providers\\PrismicServiceProvider"
+            ],
+            "aliases": {
+                "Prismic": "Incraigulous\\PrismicToolkit\\Facades\\Prismic"
+            }
+        }
+    }
 }

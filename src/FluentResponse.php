@@ -134,7 +134,11 @@ class FluentResponse
                 return new Collection($response->getSlices());
                 break;
             case StructuredText::class:
-                return new StructuredTextWrapper($response);
+                $structuredText = new StructuredTextWrapper($response);
+                if ($structuredText->isEmpty()) {
+                    return null;
+                }
+                return $structuredText;
                 break;
             case Text::class:
                 return $response->asText();

@@ -54,6 +54,7 @@ class PrismicServiceProvider extends ServiceProvider
     {
         //Register the official prismic SDK
         $this->app->singleton('prismic', function ($app) {
+            define('PRISMIC_LINK_RESOLVER', config('prismic.linkResolver'));
             return FluentResponse::make(
                 Api::get(
                 config('prismic.endpoint'),

@@ -30,9 +30,14 @@ class WebLinkWrapper implements Arrayable, Jsonable
     public function toArray()
     {
         return [
-            'url' => $this->getObject()->getUrl(),
+            'url' => $this->getUrl(),
             'contentType' => $this->getObject()->getContentType(),
         ];
+    }
+
+    public function getUrl()
+    {
+        return $this->getObject()->getUrl();
     }
 
     /**
@@ -40,6 +45,6 @@ class WebLinkWrapper implements Arrayable, Jsonable
      */
     public function __toString()
     {
-        return $this->getObject()->getUrl();
+        return $this->getUrl();
     }
 }

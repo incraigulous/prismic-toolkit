@@ -110,4 +110,13 @@ class DocumentWrapperTest extends TestCase
         $this->assertEquals($document->getId(), $document->id);
         $this->assertEquals($document->getUid(), $document->uid);
     }
+
+    /**
+     * @test
+     */
+    public function it_can_revolve_links()
+    {
+        $document = Prismic::getByUID('single', 'test-single');
+        $this->assertStringStartsWith('/', $document->url);
+    }
 }

@@ -32,6 +32,13 @@ return [
     'cacheTime' => 0,
 
     /**
+     * A prismic link resolver.
+     *
+     * See https://prismic.io/docs/php/beyond-the-api/link-resolving
+     */
+    'linkResolver' => \Incraigulous\PrismicToolkit\GenericLinkResolver::class,
+
+    /**
      * The queue driver
      */
     'queueDriver' => 'sync',

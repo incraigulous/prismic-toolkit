@@ -56,4 +56,13 @@ class DocumentWrapper extends FragmentableObjectWrapper
     {
         return str_replace($this->object->getType().'.', '', $key);
     }
+
+    public function getUrl()
+    {
+        if (defined('PRISMIC_LINK_RESOLVER')) {
+            $resolverClass = PRISMIC_LINK_RESOLVER;
+            $resolver = new $resolverClass;
+            return $resolver->resolve($this);
+        }
+    }
 }

@@ -229,7 +229,14 @@ trait OverloadsToObject
      */
     public function exists($name)
     {
-        return property_exists($this->getObject(), $name);
+        $reflection = new \ReflectionClass($this->getObject());
+
+        try {
+            $property = $reflection->getProperty($name);
+            return !$property->isPrivate();
+        } catch (\Exception $ex) {
+            return false;
+        }
     }
 
     /**

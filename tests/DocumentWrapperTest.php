@@ -76,6 +76,8 @@ class DocumentWrapperTest extends TestCase
         $this->assertTrue(is_numeric($array['number']));
         $this->assertTrue(is_string($array['key_text']));
         $this->assertTrue(is_string($array['select']));
+        $this->assertTrue(is_string($array['id']));
+        $this->assertTrue(is_string($array['uid']));
     }
 
     /**

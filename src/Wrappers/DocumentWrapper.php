@@ -14,6 +14,20 @@ class DocumentWrapper extends FragmentableObjectWrapper
 {
 
     /**
+     * Recursively convert to an array.
+     * @return array
+     */
+    public function toArray()
+    {
+        $array = parent::toArray();
+        $array['id'] = $this->id;
+        if ($this->uid) {
+            $array['uid'] = $this->uid;
+        }
+        return $array;
+    }
+
+    /**
      * Resolve fields by name
      *
      * @param $name

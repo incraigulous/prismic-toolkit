@@ -19,28 +19,11 @@ use Prismic\WithFragments;
 
 abstract class FragmentableObjectWrapper implements Jsonable, Arrayable
 {
-    use OverloadsToObject, HasJsonableObject;
-    use HasArrayableObject {
-        toArray as protected getFieldsAsArray;
-    }
+    use OverloadsToObject, HasJsonableObject, HasArrayableObject;
 
     public function __construct(WithFragments $object)
     {
         $this->object = $object;
-    }
-
-    /**
-     * Recursively convert to an array.
-     * @return array
-     */
-    public function toArray()
-    {
-        $array = $this->getFieldsAsArray();
-        $array['id'] = $this->id;
-        if ($this->uid) {
-            $array['uid'] = $this->uid;
-        }
-        return $array;
     }
 
     public function all()

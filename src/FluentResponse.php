@@ -91,8 +91,13 @@ class FluentResponse
                 return new CompositeSliceWrapper($response);
                 break;
             case Date::class:
-            case Timestamp::class:
                 return new Carbon($response->getValue(), config('prismic.timezone'));
+            case Timestamp::class:
+                $date = new Carbon($response->getValue());
+                if (config('prismic.timezone')) {
+                    $date->setTimezone(config('prismic.timezone'));
+                }
+                return $date;
                 break;
             case Document::class:
                 return new DocumentWrapper($response);
